@@ -1,4 +1,4 @@
-import { Ball } from '../gameobjects/ball';
+import { roboPart } from '../gameobjects/roboPart';
 import * as PIXI from 'pixi.js';
 
 export class GameScene extends PIXI.Container
@@ -24,10 +24,10 @@ export class GameScene extends PIXI.Container
         this.addChild(scalerBackground);
 
         // add some items to this scene
-        this.ball = new Ball({ x: (this.game.width / 2) + 100, y: this.game.height / 2 });
+        this.ball = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2 });
         this.addChild(this.ball);
 
-        this.ball2 = new Ball({ x: this.game.width / 2 - 100, y: 100 });
+        this.ball2 = new roboPart({ x: this.game.width / 2 - 100, y: 100 });
         this.addChild(this.ball2);
     }
 

@@ -1,7 +1,7 @@
-import { GAMEPLAY } from './../constants';
+import { GAMEPLAY } from '../constants';
 import * as PIXI from 'pixi.js';
 
-export class Ball extends PIXI.Sprite
+export class roboPart extends PIXI.Sprite
 {
     constructor({ x = 0, y = 0 } = {})
     {
