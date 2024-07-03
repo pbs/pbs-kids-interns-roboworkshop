@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 
 export class roboPart extends PIXI.Sprite
 {
+    // why is it formtted this way? instead of just x, y, shape
     constructor({ x = 0, y = 0, shape = 'null' } = {})
     {
         const texture = PIXI.Assets.get(shape);
@@ -14,7 +15,8 @@ export class roboPart extends PIXI.Sprite
 
         this.hitSound = PIXI.Assets.get('bounce');
 
-        this.eventMode = 'static'; // allows the shaoes to be interactive
+        this.eventMode = 'static'; // allows the shapes to be interactive
+        this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
     }
 
     update(ticker)
