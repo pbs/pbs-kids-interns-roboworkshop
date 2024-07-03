@@ -3,9 +3,9 @@ import * as PIXI from 'pixi.js';
 
 export class roboPart extends PIXI.Sprite
 {
-    constructor({ x = 0, y = 0 } = {})
+    constructor({ x = 0, y = 0, shape = 'null' } = {})
     {
-        const texture = PIXI.Assets.get('ball');
+        const texture = PIXI.Assets.get(shape);
         super(texture);
 
         this.anchor.set(0.5, 0.5);
@@ -13,6 +13,8 @@ export class roboPart extends PIXI.Sprite
         this.velocity = new PIXI.Point(0, 0);
 
         this.hitSound = PIXI.Assets.get('bounce');
+
+        this.eventMode = 'static'; // allows the shaoes to be interactive
     }
 
     update(ticker)

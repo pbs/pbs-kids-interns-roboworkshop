@@ -11,10 +11,11 @@ export class GameScene extends PIXI.Container
 
     async preload()
     {
-        PIXI.Assets.add({alias: 'ball', src: './assets/Ball.png'});
+        PIXI.Assets.add({alias: 'hexagon', src: './assets/hexagon.png'});
+        PIXI.Assets.add({alias: 'star', src: './assets/star.png'});
         PIXI.Assets.add({alias: 'bounce', src: './assets/bounce.mp3'});
 
-        await PIXI.Assets.load(['ball', 'bounce']);
+        await PIXI.Assets.load(['hexagon', 'star', 'bounce']);
     }
 
     start()
@@ -24,17 +25,17 @@ export class GameScene extends PIXI.Container
         this.addChild(scalerBackground);
 
         // add some items to this scene
-        this.ball = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2 });
-        this.addChild(this.ball);
+        this.hexagon = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2, shape: 'hexagon' });
+        this.addChild(this.hexagon);
 
-        this.ball2 = new roboPart({ x: this.game.width / 2 - 100, y: 100 });
-        this.addChild(this.ball2);
+        this.star = new roboPart({ x: this.game.width / 2 - 100, y: 100, shape: 'star' });
+        this.addChild(this.star);
     }
 
     update(ticker)
     {
         // bounce the balls
-        this.ball.update(ticker);
-        this.ball2.update(ticker);
+        this.hexagon.update(ticker);
+        this.star.update(ticker);
     }
 }
