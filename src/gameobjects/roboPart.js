@@ -1,4 +1,4 @@
-import { GAMEPLAY } from '../constants';
+// import { GAMEPLAY } from '../constants';
 import * as PIXI from 'pixi.js';
 
 export class roboPart extends PIXI.Sprite
@@ -13,12 +13,14 @@ export class roboPart extends PIXI.Sprite
         this.position.set(x, y);
         this.velocity = new PIXI.Point(0, 0);
 
-        this.hitSound = PIXI.Assets.get('bounce');
+        // this.hitSound = PIXI.Assets.get('bounce');
 
         this.eventMode = 'static'; // allows the shapes to be interactive
         this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
+        this.on('pointerdown', onDragStart);
     }
 
+    /*
     update(ticker)
     {
         
@@ -33,4 +35,5 @@ export class roboPart extends PIXI.Sprite
             this.hitSound.play();
         }
     }
+    */
 }

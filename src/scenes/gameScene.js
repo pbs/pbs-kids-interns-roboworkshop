@@ -1,4 +1,5 @@
 import { roboPart } from '../gameobjects/roboPart';
+//import { dragObject } from '../scripts/dragObject';
 import * as PIXI from 'pixi.js';
 
 export class GameScene extends PIXI.Container
@@ -13,9 +14,10 @@ export class GameScene extends PIXI.Container
     {
         PIXI.Assets.add({alias: 'hexagon', src: './assets/hexagon.png'});
         PIXI.Assets.add({alias: 'star', src: './assets/star.png'});
+        PIXI.Assets.add({alias: 'square', src: './assets/whitesquare120x120.png'});
         PIXI.Assets.add({alias: 'bounce', src: './assets/bounce.mp3'});
 
-        await PIXI.Assets.load(['hexagon', 'star', 'bounce']);
+        await PIXI.Assets.load(['hexagon', 'star', 'square', 'bounce']);
     }
 
     start()
@@ -30,12 +32,17 @@ export class GameScene extends PIXI.Container
 
         this.star = new roboPart({ x: this.game.width / 2 - 100, y: 100, shape: 'star' });
         this.addChild(this.star);
+
+        this.square = new roboPart({ x: 300, y: 180, shape: 'square'});
+        this.addChild(this.square);
     }
 
+    /*
     update(ticker)
     {
-        // bounce the balls
+        // bounce the shapes
         this.hexagon.update(ticker);
         this.star.update(ticker);
     }
+    */
 }
