@@ -26,6 +26,9 @@ export class GameScene extends PIXI.Container
         const scalerBackground = new PIXI.Sprite(texture);
         this.addChild(scalerBackground);
 
+        // add dragging functionality
+        // let dragTarget = null;
+
         // add some items to this scene
         this.hexagon = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2, shape: 'hexagon' });
         this.addChild(this.hexagon);
@@ -37,12 +40,17 @@ export class GameScene extends PIXI.Container
         this.addChild(this.square);
     }
 
-    /*
+
+    
+    
     update(ticker)
     {
         // bounce the shapes
         this.hexagon.update(ticker);
         this.star.update(ticker);
+        this.square.update(ticker);
+
+        // this.on('pointerup', this.onDragEnd);
     }
-    */
+
 }

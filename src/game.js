@@ -128,9 +128,9 @@ export class Game
         });
     }
 
-    update(/*deltaTime*/)
+    update(deltaTime)
     {
-        /*
+        
         // if the game is paused, or there isn't a scene, we can skip rendering/updates
         if (this.isPaused || this.application.state.scene.value === null)
         {
@@ -141,7 +141,7 @@ export class Game
         {
             this.currentScene.update(deltaTime);
         }
-        */
+        
         
     }
 

@@ -1,5 +1,7 @@
-// import { GAMEPLAY } from '../constants';
+import { GAMEPLAY } from '../constants';
 import * as PIXI from 'pixi.js';
+// import { Game } from '../game';
+// import { GameScene } from '../scenes/gameScene';
 
 export class roboPart extends PIXI.Sprite
 {
@@ -13,14 +15,14 @@ export class roboPart extends PIXI.Sprite
         this.position.set(x, y);
         this.velocity = new PIXI.Point(0, 0);
 
-        // this.hitSound = PIXI.Assets.get('bounce');
+        this.hitSound = PIXI.Assets.get('bounce');
 
         this.eventMode = 'static'; // allows the shapes to be interactive
         this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
-        this.on('pointerdown', onDragStart);
-    }
 
-    /*
+        this.dragTarget = null;
+    }
+    
     update(ticker)
     {
         
@@ -34,6 +36,37 @@ export class roboPart extends PIXI.Sprite
 
             this.hitSound.play();
         }
+        
+        //console.log("update loop running");
+
+        this.on('pointerdown', this.onDragStart);
+
+        this.on('pointerup', this.onDragEnd);
+        this.on('pointerupoutside', this.onDragEnd);
+
     }
-    */
+    
+    onDragStart() {
+        // console.log("user is clicking on shape");
+        this.dragTarget = this;
+        this.alpha = 0.75;
+        this.on('pointermove', this.onDragMove);
+    }
+
+    onDragMove(event) {
+        //console.log("user is moving cursor!");
+        if (this.dragTarget) {
+            // console.log("drag target registered");
+            this.dragTarget.parent.toLocal(event.global, null, this.dragTarget.position);
+        }
+    }
+
+    onDragEnd() {
+        // console.log("user has stopped interacting");
+        if (this.dragTarget) {
+            this.dragTarget = null;
+            this.alpha = 1;
+        }
+    }
+    
 }
