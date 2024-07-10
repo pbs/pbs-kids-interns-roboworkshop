@@ -1,4 +1,4 @@
-import { GAMEPLAY } from '../constants';
+// import { GAMEPLAY } from '../constants';
 import * as PIXI from 'pixi.js';
 // import { Game } from '../game';
 // import { GameScene } from '../scenes/gameScene';
@@ -23,19 +23,19 @@ export class roboPart extends PIXI.Sprite
         this.dragTarget = null;
     }
     
-    update(ticker)
+    update()
     {
         
-        this.velocity.y += GAMEPLAY.GRAVITY * ticker.deltaTime;
-        this.position.y += this.velocity.y * ticker.deltaTime;
+        // this.velocity.y += GAMEPLAY.GRAVITY * ticker.deltaTime;
+        // this.position.y += this.velocity.y * ticker.deltaTime;
         
-        if(this.position.y > 680)
-        {
-            this.position.y = 679;
-            this.velocity.y *= -1;
+        // if(this.position.y > 680)
+        // {
+        //     this.position.y = 679;
+        //     this.velocity.y *= -1;
 
-            this.hitSound.play();
-        }
+        //     this.hitSound.play();
+        // }
         
         //console.log("update loop running");
 
@@ -43,7 +43,7 @@ export class roboPart extends PIXI.Sprite
 
         this.on('pointerup', this.onDragEnd);
         this.on('pointerupoutside', this.onDragEnd);
-
+        
     }
     
     onDragStart() {
