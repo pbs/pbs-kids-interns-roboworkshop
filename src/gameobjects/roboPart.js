@@ -55,6 +55,10 @@ export class roboPart extends PIXI.Sprite
             this.alpha = 0.75;
             this.on('pointermove', this.onDragMove);
         }   
+
+        if (this.parent) {
+            this.parent.addChild(this);
+        }
     }
 
     onDragMove(event) {
@@ -62,8 +66,9 @@ export class roboPart extends PIXI.Sprite
         if (this.dragTarget) {
             // console.log("drag target registered");
             this.dragTarget.parent.toLocal(event.global, this.dragTarget.parent, this.dragTarget.position);
-            //console.log();
+            // console.log(`${this.dragTarget.position}`);
         }
+
     }
 
     onDragEnd() {
@@ -76,4 +81,8 @@ export class roboPart extends PIXI.Sprite
         }
     }
     
+    // have a draggable class that robopart inherits from?
+    // this would be done on the scene level :3
+    // move this to the gamescene
+    // since the scene is what has all the draggable objects
 }

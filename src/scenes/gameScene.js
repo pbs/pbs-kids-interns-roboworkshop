@@ -30,34 +30,37 @@ export class GameScene extends PIXI.Container
         // let dragTarget = null;
 
         // add some items to this scene
-        this.hexagon = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2, shape: 'hexagon' });
-        this.hexagon.scale.x *= 0.5;
-        this.hexagon.scale.y *= 0.5;
-        this.addChild(this.hexagon);
+        let hexagon = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2, shape: 'hexagon' });
+        hexagon.scale.x *= 0.5;
+        hexagon.scale.y *= 0.5;
+        this.addChild(hexagon);
 
-        this.star = new roboPart({ x: this.game.width / 2 - 100, y: 100, shape: 'star' });
-        this.addChild(this.star);
+        let star = new roboPart({ x: this.game.width / 2 - 100, y: 100, shape: 'star' });
+        this.addChild(star);
         
-        this.square = new roboPart({ x: 300, y: 180, shape: 'square'});
-        this.square.tint = 0xa608c9;
-        this.addChild(this.square);
+        let square = new roboPart({ x: 300, y: 180, shape: 'square'});
+        square.tint = 0xa608c9;
+        this.addChild(square);
 
-        this.square2 = new roboPart({ x: 700, y: 380, shape: 'square'});
-        this.addChild(this.square2);
+        let square2 = new roboPart({ x: 700, y: 380, shape: 'square'});
+        this.addChild(square2);
     }
 
 
     
     
-    update(ticker)
-    {
-        // bounce the shapes
-        this.hexagon.update(ticker);
-        this.star.update(ticker);
-        this.square.update(ticker);
-        this.square2.update(ticker);
-
-        // this.on('pointerup', this.onDragEnd);
+    update(ticker) {
+        this.children.forEach(child => {
+            if (child instanceof roboPart) {
+                child.update(ticker);
+            }
+        });
     }
+    
 
+    // this.on('pointerup', this.onDragEnd);
+    
+
+    // add a dsstore, stores stuff that happens to the directory for mac os
+    // look into containers and display objects: graphical objects that can be moved around
 }
