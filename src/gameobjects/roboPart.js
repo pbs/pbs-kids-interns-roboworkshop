@@ -13,9 +13,9 @@ export class roboPart extends PIXI.Sprite
 
         this.anchor.set(0.5, 0.5);
         this.position.set(x, y);
-        this.velocity = new PIXI.Point(0, 0);
+        // this.velocity = new PIXI.Point(0, 0);
 
-        this.hitSound = PIXI.Assets.get('bounce');
+        // this.hitSound = PIXI.Assets.get('bounce');
 
         this.eventMode = 'static'; // allows the shapes to be interactive
         this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
@@ -61,13 +61,15 @@ export class roboPart extends PIXI.Sprite
         //console.log("user is moving cursor!");
         if (this.dragTarget) {
             // console.log("drag target registered");
-            this.dragTarget.parent.toLocal(event.global, null, this.dragTarget.position);
+            this.dragTarget.parent.toLocal(event.global, this.dragTarget.parent, this.dragTarget.position);
+            //console.log();
         }
     }
 
     onDragEnd() {
         // console.log("user has stopped interacting");
-        if (this.dragTarget) {
+        if (this.dragInProgress && this.dragTarget) {
+            // console.log("user has stopped interacting");
             this.dragTarget = null;
             this.alpha = 1;
             this.dragInProgress = false;
