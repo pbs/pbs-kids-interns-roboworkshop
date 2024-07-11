@@ -21,6 +21,7 @@ export class roboPart extends PIXI.Sprite
         this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
 
         this.dragTarget = null;
+        this.dragInProgress = false;
     }
     
     update()
@@ -48,9 +49,12 @@ export class roboPart extends PIXI.Sprite
     
     onDragStart() {
         // console.log("user is clicking on shape");
-        this.dragTarget = this;
-        this.alpha = 0.75;
-        this.on('pointermove', this.onDragMove);
+        if (!this.dragInProgress) {
+            this.dragTarget = this;
+            this.dragInProgress = true;
+            this.alpha = 0.75;
+            this.on('pointermove', this.onDragMove);
+        }   
     }
 
     onDragMove(event) {
@@ -66,6 +70,7 @@ export class roboPart extends PIXI.Sprite
         if (this.dragTarget) {
             this.dragTarget = null;
             this.alpha = 1;
+            this.dragInProgress = false;
         }
     }
     

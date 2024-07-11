@@ -31,13 +31,19 @@ export class GameScene extends PIXI.Container
 
         // add some items to this scene
         this.hexagon = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2, shape: 'hexagon' });
+        this.hexagon.scale.x *= 0.5;
+        this.hexagon.scale.y *= 0.5;
         this.addChild(this.hexagon);
 
         this.star = new roboPart({ x: this.game.width / 2 - 100, y: 100, shape: 'star' });
         this.addChild(this.star);
-
+        
         this.square = new roboPart({ x: 300, y: 180, shape: 'square'});
+        this.square.tint = 0xa608c9;
         this.addChild(this.square);
+
+        this.square2 = new roboPart({ x: 700, y: 380, shape: 'square'});
+        this.addChild(this.square2);
     }
 
 
@@ -49,6 +55,7 @@ export class GameScene extends PIXI.Container
         this.hexagon.update(ticker);
         this.star.update(ticker);
         this.square.update(ticker);
+        this.square2.update(ticker);
 
         // this.on('pointerup', this.onDragEnd);
     }
