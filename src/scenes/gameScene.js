@@ -26,10 +26,12 @@ export class GameScene extends PIXI.Container
         const scalerBackground = new PIXI.Sprite(texture);
         this.addChild(scalerBackground);
 
-        // add dragging functionality
-        // let dragTarget = null;
+        // setting interactiveChildren here could be useful
+        this.interactiveChildren = true;
 
-        // add some items to this scene
+        /*
+        add some shapes to this scene
+        */
         let hexagon = new roboPart({ x: (this.game.width / 2) + 100, y: this.game.height / 2, shape: 'hexagon' });
         hexagon.scale.x *= 0.5;
         hexagon.scale.y *= 0.5;
@@ -44,22 +46,58 @@ export class GameScene extends PIXI.Container
 
         let square2 = new roboPart({ x: 700, y: 380, shape: 'square'});
         this.addChild(square2);
+
+
+        /*
+        make the objects interactable
+        */
+        this.dragTarget = null;
+
+        // turn on listeners
+        this.children.forEach(function (child) { 
+
+            child.on('pointerdown', this.onDragStart);
+
+            child.on('pointerup', this.onDragEnd);
+            child.on('pointerupoutside', this.onDragEnd);
+
+        }.bind(this));
+
     }
 
-
-    
     
     update(ticker) {
+        
         this.children.forEach(child => {
             if (child instanceof roboPart) {
-                child.update(ticker);
+                child.update(ticker); // calls update from roboPart class
             }
         });
+
     }
     
+    onDragStart() {
+        this.dragTarget = this;
+        this.alpha = 0.75;
+        this.on('pointermove', this.parent.onDragMove);
+    }
 
-    // this.on('pointerup', this.onDragEnd);
-    
+    onDragMove(event) {
+        if (this.dragTarget) {
+            this.dragTarget.parent.toLocal(event.global, this.dragTarget.parent, this.dragTarget.position);
+        }
+
+        if (this.parent) {
+            this.parent.addChild(this);
+        }
+    }
+
+    onDragEnd() {
+        if (this.dragTarget) {
+            this.dragTarget = null;
+            this.alpha = 1;
+        }
+    }
 
     // add a dsstore, stores stuff that happens to the directory for mac os
     // look into containers and display objects: graphical objects that can be moved around
