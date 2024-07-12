@@ -1,5 +1,4 @@
 import { roboPart } from '../gameobjects/roboPart';
-//import { dragObject } from '../scripts/dragObject';
 import * as PIXI from 'pixi.js';
 
 export class GameScene extends PIXI.Container
