@@ -1,5 +1,8 @@
+import { button } from '../gameobjects/button';
 import { roboPart } from '../gameobjects/roboPart';
 import * as PIXI from 'pixi.js';
+import { TitleScene } from './title';
+import { EndScene } from './endScene';
 
 export class GameScene extends PIXI.Container
 {
@@ -11,12 +14,24 @@ export class GameScene extends PIXI.Container
 
     async preload()
     {
+        /*
+        add shape textures
+        */
         PIXI.Assets.add({alias: 'hexagon', src: './assets/hexagon.png'});
         PIXI.Assets.add({alias: 'star', src: './assets/star.png'});
         PIXI.Assets.add({alias: 'square', src: './assets/whitesquare120x120.png'});
         PIXI.Assets.add({alias: 'bounce', src: './assets/bounce.mp3'});
 
-        await PIXI.Assets.load(['hexagon', 'star', 'square', 'bounce']);
+        /*
+        add button textures
+        */
+        PIXI.Assets.add({alias: 'back', src: './assets/backArrow.png'});
+        PIXI.Assets.add({alias: 'next', src: './assets/nextArrow.png'});
+
+        /*
+        now load all the textures
+        */
+        await PIXI.Assets.load(['hexagon', 'star', 'square', 'bounce', 'back', 'next']);
     }
 
     start()
@@ -46,6 +61,30 @@ export class GameScene extends PIXI.Container
         let square2 = new roboPart({ x: 700, y: 380, shape: 'square'});
         this.addChild(square2);
 
+        /*
+        now add buttons to navigate back and forth
+        */
+        let backBtn = new button({x: this.game.width / 4, y: this.game.height /* - backBtn.height */ - 200, image: 'back'});
+        backBtn.scale.x *= 0.5;
+        backBtn.scale.y *= 0.5;
+        this.addChild(backBtn);
+
+        let nextBtn = new button({x: this.game.width /* - nextBtn.width */ - 300, y: this.game.height /* - nextBtn.height */ - 200, image: 'next'});
+        nextBtn.scale.x *= 0.5;
+        nextBtn.scale.y *= 0.5;
+        this.addChild(nextBtn);
+
+        backBtn.on('pointerdown', () =>
+        {
+            const prevScene = new TitleScene(this.game);
+            this.game.application.state.scene.value = prevScene;
+        });
+
+        nextBtn.on('pointerdown', () =>
+        {
+            const nextScene = new EndScene(this.game);
+            this.game.application.state.scene.value = nextScene;
+        });
 
         /*
         make the objects interactable
@@ -54,12 +93,14 @@ export class GameScene extends PIXI.Container
 
         // turn on listeners
         this.children.forEach(function (child) { 
+            if (child instanceof roboPart) {
 
-            child.on('pointerdown', this.onDragStart);
+                child.on('pointerdown', this.onDragStart);
 
-            child.on('pointerup', this.onDragEnd);
-            child.on('pointerupoutside', this.onDragEnd);
+                child.on('pointerup', this.onDragEnd);
+                child.on('pointerupoutside', this.onDragEnd);
 
+            }
         }.bind(this));
 
     }

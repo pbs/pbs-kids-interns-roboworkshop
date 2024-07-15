@@ -12,6 +12,7 @@ export class button extends PIXI.Sprite
         this.position.set(x, y);
 
         this.eventMode = 'static'; // allows the shapes to be interactive
+        this.interactive = true;
         this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
 
         // make the button react when hovering over it

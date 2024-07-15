@@ -45,10 +45,7 @@ export class TitleScene extends PIXI.Container
         });
 */
 
-        let startBtn = new button({ x: this.width / 2, y: this.height / 2, image: 'button' });
-
-        startBtn.interactive = true;
-        startBtn.anchor.set(0.5, 0.5);
+        let startBtn = new button({ x: this.game.width / 2, y: this.game.height / 2, image: 'button' });
 
         startBtn.on('pointerdown', () =>
         {
