@@ -78,7 +78,7 @@ export class GameScene extends PIXI.Container
     onDragStart() {
         this.dragTarget = this;
         this.alpha = 0.75;
-        this.on('pointermove', this.parent.onDragMove);
+        this.on('pointermove', this.parent.onDragMove); // since this is called on each child, make sure the function 
     }
 
     onDragMove(event) {
