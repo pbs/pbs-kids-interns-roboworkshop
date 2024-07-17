@@ -142,12 +142,13 @@ export class GameScene extends PIXI.Container
         }.bind(this));
 
         // console.log(`hexagon anchor point: ${hexagon.anchor}`);
-        const roboSilhouette = [];
-        this.children.forEach(child =>{
-            if (child instanceof roboFrame) {
-                roboSilhouette.push(child);
-            }
-        });
+
+        // const roboSilhouette = [];
+        // this.children.forEach(child =>{
+        //     if (child instanceof roboFrame) {
+        //         roboSilhouette.push(child);
+        //     }
+        // });
 
         // console.log(`${roboSilhouette[0].toString()}`);
     }
@@ -191,13 +192,6 @@ export class GameScene extends PIXI.Container
         //     }
         // });
 
-        this.parent.children.forEach(child => {
-            if (child instanceof roboFrame) {
-                if (this.parent.collision(this, child)) {
-                    console.log("collision detected");
-                }
-            }
-        });
         
     }
 
@@ -206,6 +200,15 @@ export class GameScene extends PIXI.Container
             this.dragTarget = null;
             this.alpha = 1;
         }
+
+        this.parent.children.forEach(child => {
+            if (child instanceof roboFrame) {
+                if (this.parent.collision(this, child)) {
+                    this.x = child.x;
+                    this.y = child.y;
+                }
+            }
+        });
     }
 
     collision(object1, object2) {
