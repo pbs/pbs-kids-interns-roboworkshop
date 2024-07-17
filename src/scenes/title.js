@@ -14,10 +14,10 @@ export class TitleScene extends PIXI.Container
 
     async preload()
     {
-        PIXI.Assets.add({alias: 'testBG', src: './assets/BG1320x780-2.png'});
+        PIXI.Assets.add({alias: 'titleBG', src: './assets/botbuilderfrontpage.png'});
         PIXI.Assets.add({alias: 'button', src: './assets/headtoolbox.png'});
 
-        this.backgroundTexture = await PIXI.Assets.load('testBG');
+        this.backgroundTexture = await PIXI.Assets.load('titleBG');
         await PIXI.Assets.load('button');
     }
 

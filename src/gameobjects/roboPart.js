@@ -13,11 +13,13 @@ export class roboPart extends PIXI.Sprite
 
         this.eventMode = 'static'; // allows the shapes to be interactive
         this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
+    
     }
     
     update()
     {
         // nothing to keep track of
+        
     }
     
     // have a draggable class that robopart inherits from?
