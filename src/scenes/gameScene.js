@@ -200,14 +200,34 @@ export class GameScene extends PIXI.Container
             this.alpha = 1;
         }
 
+        let closestDistance = null;
+        let closestObject = null;
+
         this.parent.children.forEach(child => {
             if (child instanceof roboFrame) {
-                if (this.parent.collision(this, child)) {
-                    this.x = child.x;
-                    this.y = child.y;
+
+                if(this.parent.collision(this, child)) {
+
+                    //calculate the distance between the two objects, if there is a collision!
+                    let distance = this.parent.calculateDistance(this, child);
+
+                    if(closestDistance === null || distance < closestDistance) {
+                        closestDistance = distance;
+                        closestObject = child;
+                    }
+
                 }
             }
         });
+
+        if (closestObject) {
+            this.x = closestObject.x;
+            this.y = closestObject.y;
+        }
+    }
+
+    calculateDistance(object1, object2) {
+        return Math.sqrt(Math.pow(object1.x - object2.x, 2) + Math.pow(object1.y - object2.y, 2));
     }
 
     collision(object1, object2) {
