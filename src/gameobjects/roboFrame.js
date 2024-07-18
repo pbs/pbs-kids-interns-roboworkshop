@@ -15,12 +15,12 @@ export class roboFrame extends PIXI.Sprite
 
         this.on('pointerover', () =>
         {
-            this.tint = 0xffffff;
+            this.alpha = 0.75;
         });
 
         this.on('pointerleave', () =>
         {
-            this.tint = 0xcccccc;
+            this.alpha = 1;
         });
     }
     

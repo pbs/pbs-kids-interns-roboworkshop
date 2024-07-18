@@ -24,6 +24,11 @@ export class GameScene extends PIXI.Container
         add roboframe parts
         */
         PIXI.Assets.add({alias: 'head', src: './assets/roboFrameParts/bothead.png'});
+        PIXI.Assets.add({alias: 'body', src: './assets/roboFrameParts/Botbody.png'});
+        PIXI.Assets.add({alias: 'leftArm', src: './assets/roboFrameParts/leftbotarm.png'});
+        PIXI.Assets.add({alias: 'rightArm', src: './assets/roboFrameParts/rightbotarm.png'});
+        PIXI.Assets.add({alias: 'leftLeg', src: './assets/roboFrameParts/leftbotleg.png'});
+        PIXI.Assets.add({alias: 'rightLeg', src: './assets/roboFrameParts/rightbotleg.png'});
 
         /*
         add shape textures
@@ -44,7 +49,11 @@ export class GameScene extends PIXI.Container
         /*
         now load all the textures
         */
-        await PIXI.Assets.load(['workshopBG', 'head', 'hexagon', 'star', 'square', /* 'bounce', */ 'back', 'next']);
+        await PIXI.Assets.load(['workshopBG', 
+                                    'head', 'body', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg',
+                                    'hexagon', 'star', 'square', 
+                                    /* 'bounce', */ 
+                                    'back', 'next']);
     }
 
     start()
@@ -59,9 +68,28 @@ export class GameScene extends PIXI.Container
         /*
         add the robot's frame
         */
-        let head = new roboFrame({ x: this.game.width / 2, y: 250, shape: 'head'});
-        head.tint = 0xb7adc7;
+        let head = new roboFrame({ x: this.game.width / 2, y: 150, shape: 'head'});
         this.addChild(head);
+
+        let body = new roboFrame({ x: this.game.width / 2, y: 150 + head.height, shape: 'body'});
+        this.addChild(body);
+
+        let leftArm = new roboFrame({ x: this.game.width / 2 - body.width , y: 150 + head.height, shape: 'leftArm'});
+        this.addChild(leftArm);
+
+        let rightArm = new roboFrame({ x: this.game.width / 2 + body.width , y: 150 + head.height, shape: 'rightArm'});
+        this.addChild(rightArm);
+
+        let leftLeg = new roboFrame({ x: this.game.width / 2 - body.height / 2, 
+                                        y: 200 + head.height + body.height, shape: 'leftLeg'});
+        this.addChild(leftLeg);
+
+        let rightLeg = new roboFrame({ x: this.game.width / 2  + body.height / 2, 
+                                        y: 200 + head.height + body.height, shape: 'rightLeg'});
+        this.addChild(rightLeg);
+
+        console.log(`head height: ${head.height}`);
+        console.log(`body y: ${body.y}`);
 
         /*
         add some shapes to this scene
@@ -163,7 +191,7 @@ export class GameScene extends PIXI.Container
         if (this.parent) {
             this.parent.addChild(this);
         }
-                
+
     }
 
     onDragEnd() {
