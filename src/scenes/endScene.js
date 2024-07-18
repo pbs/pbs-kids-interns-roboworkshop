@@ -12,8 +12,8 @@ export class EndScene extends PIXI.Container
 
     async preload()
     {
-        PIXI.Assets.add({alias: 'testBG', src: './assets/BG1320x780-2.png'});
-        PIXI.Assets.add({alias: 'restart', src: './assets/restart.png'});
+        PIXI.Assets.add({alias: 'testBG', src: './assets/backgrounds/BG1320x780-2.png'});
+        PIXI.Assets.add({alias: 'restart', src: './assets/navButtons/restart.png'});
 
         this.backgroundTexture = await PIXI.Assets.load('testBG');
         await PIXI.Assets.load('restart');

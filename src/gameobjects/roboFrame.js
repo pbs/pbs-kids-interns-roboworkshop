@@ -13,11 +13,8 @@ export class roboFrame extends PIXI.Sprite
         this.eventMode = 'static'; // allows the shapes to be interactive
         this.cursor = 'pointer'; 
 
-        // this.hitArea = new PIXI.Polygon([600,200, 800,200, 600,400, 800,400]);
-
         this.on('pointerover', () =>
         {
-            // console.log("mouseover");
             this.tint = 0xffffff;
         });
 

@@ -18,7 +18,7 @@ export class GameScene extends PIXI.Container
         /*
         add this lvl's bkgd
         */
-        PIXI.Assets.add({alias: 'workshopBG', src: './assets/Botbuilderbackground.png'});
+        PIXI.Assets.add({alias: 'workshopBG', src: './assets/backgrounds/Botbuilderbackground.png'});
 
         /*
         add roboframe parts
@@ -28,18 +28,18 @@ export class GameScene extends PIXI.Container
         /*
         add shape textures
         */
-        PIXI.Assets.add({alias: 'hexagon', src: './assets/hexagon.png'});
-        PIXI.Assets.add({alias: 'star', src: './assets/star.png'});
-        PIXI.Assets.add({alias: 'square', src: './assets/whitesquare120x120.png'});
+        PIXI.Assets.add({alias: 'hexagon', src: './assets/shapes/hexagon.png'});
+        PIXI.Assets.add({alias: 'star', src: './assets/shapes/star.png'});
+        PIXI.Assets.add({alias: 'square', src: './assets/shapes/whitesquare120x120.png'});
         
-        // sounds would be loaded here
+        // sounds can be loaded here
         // PIXI.Assets.add({alias: 'bounce', src: './assets/bounce.mp3'});
 
         /*
         add button textures
         */
-        PIXI.Assets.add({alias: 'back', src: './assets/backArrow.png'});
-        PIXI.Assets.add({alias: 'next', src: './assets/nextArrow.png'});
+        PIXI.Assets.add({alias: 'back', src: './assets/navButtons/backArrow.png'});
+        PIXI.Assets.add({alias: 'next', src: './assets/navButtons/nextArrow.png'});
 
         /*
         now load all the textures
@@ -105,11 +105,6 @@ export class GameScene extends PIXI.Container
         nextBtn.x = this.game.width - nextBtn.width - 110;
         nextBtn.y = this.game.height - nextBtn.height - 20;
 
-        // console.log(`nextBtn coordinates: ${nextBtn.x} , ${nextBtn.y}`);
-        // console.log(`nextBtn width & height: ${nextBtn.width} x ${nextBtn.height}`);
-        // console.log(`game scene width & height: ${this.game.width} x ${this.game.height}`);
-        // console.log(`nextBtn anchor: ${nextBtn.anchor}`);
-
         this.addChild(nextBtn);
 
         backBtn.on('pointerdown', () =>
@@ -140,30 +135,14 @@ export class GameScene extends PIXI.Container
 
             }
         }.bind(this));
-
-        // console.log(`hexagon anchor point: ${hexagon.anchor}`);
-
-        // const roboSilhouette = [];
-        // this.children.forEach(child =>{
-        //     if (child instanceof roboFrame) {
-        //         roboSilhouette.push(child);
-        //     }
-        // });
-
-        // console.log(`${roboSilhouette[0].toString()}`);
     }
 
     
     update(ticker) {
-        
-        // const roboSilhouette = this.getChildrenByLabel(roboFrame);
 
         this.children.forEach(child => {
             if (child instanceof roboPart) {
-
                 child.update(ticker); // calls update from roboPart class
-
-                
             }
         });
         
@@ -172,11 +151,10 @@ export class GameScene extends PIXI.Container
     onDragStart() {
         this.dragTarget = this;
         this.alpha = 0.75;
-        this.on('pointermove', this.parent.onDragMove); // since this is called on each child, make sure the function 
+        this.on('pointermove', this.parent.onDragMove); // since this is called on each child, make sure it grabs the function from the parent file 
     }
 
     onDragMove(event) {
-        // const roboSilhouette = this.parent.getChildrenByLabel("roboFrame");
 
         if (this.dragTarget) {
             this.dragTarget.parent.toLocal(event.global, this.dragTarget.parent, this.dragTarget.position);
@@ -185,14 +163,7 @@ export class GameScene extends PIXI.Container
         if (this.parent) {
             this.parent.addChild(this);
         }
-
-        // this.parent.roboSilhouette.forEach(framePiece => {
-        //     if(this.parent.collision(this, framePiece)) {
-        //         console.log("collision detected");
-        //     }
-        // });
-
-        
+                
     }
 
     onDragEnd() {
