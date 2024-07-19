@@ -15,6 +15,7 @@ export class roboFrame extends PIXI.Sprite
         this.eventMode = 'static';
         this.cursor = 'pointer'; 
 
+        /*
         this.on('pointerover', () =>
         {
             this.alpha = 0.75;
@@ -24,6 +25,7 @@ export class roboFrame extends PIXI.Sprite
         {
             this.alpha = 1;
         });
+        */
     }
     
     update()

@@ -226,6 +226,8 @@ export class GameScene extends PIXI.Container
                     child.currentShape = this;
             
                 } else {
+                    
+                    child.alpha = 1;
 
                     // if the current shape being dragged is no longer colliding with a roboFrame, return it to its og position
                     if (child.currentShape === this) {
@@ -244,6 +246,7 @@ export class GameScene extends PIXI.Container
         if (closestObject) {
             this.x = closestObject.x;
             this.y = closestObject.y;
+            closestObject.alpha = 0;
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
