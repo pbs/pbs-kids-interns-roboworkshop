@@ -8,6 +8,9 @@ export class roboPart extends PIXI.Sprite
         const texture = PIXI.Assets.get(shape);
         super(texture);
 
+        this.initialX = x;
+        this.initialY = y;
+
         this.anchor.set(0.5, 0.5);
         this.position.set(x, y);
 

@@ -216,13 +216,37 @@ export class GameScene extends PIXI.Container
                         closestObject = child;
                     }
 
-                }
+                    // if the roboFrame already has a shape on it, return it back to its original position
+                    if (child.currentShape) {
+                        child.currentShape.x = child.currentShape.initialX;
+                        child.currentShape.y = child.currentShape.initialY;
+                    }
+
+                    // the roboFrame now has whatever shape the player dragged onto it
+                    child.currentShape = this;
+            
+                } else {
+
+                    // if the current shape being dragged is no longer colliding with a roboFrame, return it to its og position
+                    if (child.currentShape === this) {
+                        this.x = this.initialX;
+                        this.y = this.initialY;
+                        child.currentShape = null; // additionally, the roboFrame no longer has a shape on it
+                    }
+
+                } 
+
             }
+
         });
 
+        // if there was a closest roboFrame calculated, stick the roboPart to it
         if (closestObject) {
             this.x = closestObject.x;
             this.y = closestObject.y;
+        } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
+            this.x = this.initialX;
+            this.y = this.initialY;
         }
     }
 
