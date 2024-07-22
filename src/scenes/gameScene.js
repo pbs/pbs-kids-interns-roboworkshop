@@ -94,7 +94,7 @@ export class GameScene extends PIXI.Container
         /*
         add some shapes to this scene
         */
-        let hexagon = new roboPart({ x: 900, y: 200, shape: 'hexagon' });
+        let hexagon = new roboPart({ x: 900, y: 100, shape: 'hexagon' });
         hexagon.scale.x *= 0.5;
         hexagon.scale.y *= 0.5;
         this.addChild(hexagon);
@@ -204,11 +204,12 @@ export class GameScene extends PIXI.Container
         let closestObject = null;
 
         this.parent.children.forEach(child => {
+
             if (child instanceof roboFrame) {
 
-                if(this.parent.collision(this, child)) {
+                if(this.parent.collision(this, child)) { // if the roboFrame is colliding with a roboPart
 
-                    //calculate the distance between the two objects, if there is a collision!
+                    // calculate the distance between the two objects
                     let distance = this.parent.calculateDistance(this, child);
 
                     if(closestDistance === null || distance < closestDistance) {
@@ -217,23 +218,24 @@ export class GameScene extends PIXI.Container
                     }
 
                     // if the roboFrame already has a shape on it, return it back to its original position
-                    if (child.currentShape) {
+                    if (child.currentShape && child === closestObject) {
                         child.currentShape.x = child.currentShape.initialX;
                         child.currentShape.y = child.currentShape.initialY;
+                        // console.log(`${child.currentShape.shape} returned to original position!`);
+                        // return;
+                    } else if (child === closestObject) { // the target roboFrame now has whatever shape the player dragged onto it
+                        child.currentShape = this;
                     }
-
-                    // the roboFrame now has whatever shape the player dragged onto it
-                    child.currentShape = this;
             
                 } else {
                     
-                    child.alpha = 1;
+                    // child.alpha = 1;
 
                     // if the current shape being dragged is no longer colliding with a roboFrame, return it to its og position
                     if (child.currentShape === this) {
+                        child.currentShape = null; // additionally, the roboFrame no longer has a shape on it
                         this.x = this.initialX;
                         this.y = this.initialY;
-                        child.currentShape = null; // additionally, the roboFrame no longer has a shape on it
                     }
 
                 } 
@@ -246,7 +248,7 @@ export class GameScene extends PIXI.Container
         if (closestObject) {
             this.x = closestObject.x;
             this.y = closestObject.y;
-            closestObject.alpha = 0;
+            // closestObject.alpha = 0;
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
