@@ -11,6 +11,8 @@ export class roboPart extends PIXI.Sprite
         this.initialX = x;
         this.initialY = y;
 
+        this.shape = shape; // to help with debugging
+
         this.anchor.set(0.5, 0.5);
         this.position.set(x, y);
 

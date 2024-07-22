@@ -180,6 +180,16 @@ export class GameScene extends PIXI.Container
         this.dragTarget = this;
         this.alpha = 0.75;
         this.on('pointermove', this.parent.onDragMove); // since this is called on each child, make sure it grabs the function from the parent file 
+
+        // if the shape we're dragging currently belongs to a roboFrame, 
+        // make sure it no longer does
+        this.parent.children.forEach(child => {
+            if (child instanceof roboFrame) {
+                if (child.currentShape === this) {
+                    child.currentShape = null;
+                }
+            }
+        });
     }
 
     onDragMove(event) {
@@ -217,16 +227,6 @@ export class GameScene extends PIXI.Container
                         closestObject = child;
                     }
 
-                    // if the roboFrame already has a shape on it, return it back to its original position
-                    if (child.currentShape && child === closestObject) {
-                        child.currentShape.x = child.currentShape.initialX;
-                        child.currentShape.y = child.currentShape.initialY;
-                        // console.log(`${child.currentShape.shape} returned to original position!`);
-                        // return;
-                    } else if (child === closestObject) { // the target roboFrame now has whatever shape the player dragged onto it
-                        child.currentShape = this;
-                    }
-            
                 } else {
                     
                     // child.alpha = 1;
@@ -244,14 +244,27 @@ export class GameScene extends PIXI.Container
 
         });
 
-        // if there was a closest roboFrame calculated, stick the roboPart to it
+        // if the target roboFrame already has a shape on it, return the shape on it back to its og position
+        if (closestObject && closestObject.currentShape) {
+            //console.log(`oops! ${closestObject.shape} already has the ${closestObject.currentShape.shape} on it` );
+            closestObject.currentShape.x = closestObject.currentShape.initialX;
+            closestObject.currentShape.y = closestObject.currentShape.initialY;
+        }
+
+        // if there was a closest roboFrame calculated, stick the roboPart to it and replace its currentShape
         if (closestObject) {
             this.x = closestObject.x;
             this.y = closestObject.y;
+            closestObject.currentShape = this;
             // closestObject.alpha = 0;
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
+
+            // if (closestObject.currentShape) {
+            //     closestObject.currentShape = null;
+            // }
+            
         }
     }
 

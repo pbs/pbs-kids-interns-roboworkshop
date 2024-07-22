@@ -9,6 +9,8 @@ export class roboFrame extends PIXI.Sprite
 
         this.currentShape = null; // no shape that's currently on top of the frame yet
 
+        this.shape = shape; // to help with debugging
+
         this.anchor.set(0.5, 0.5);
         this.position.set(x, y);
 
