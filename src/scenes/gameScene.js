@@ -181,12 +181,13 @@ export class GameScene extends PIXI.Container
         this.alpha = 0.75;
         this.on('pointermove', this.parent.onDragMove); // since this is called on each child, make sure it grabs the function from the parent file 
 
-        // if the shape we're dragging currently belongs to a roboFrame, 
-        // make sure it no longer does
+        // if the shape we're dragging currently belongs to a roboFrame, make sure it no longer does
+        // also, restore the frame's opacity
         this.parent.children.forEach(child => {
             if (child instanceof roboFrame) {
                 if (child.currentShape === this) {
                     child.currentShape = null;
+                    child.alpha = 1;
                 }
             }
         });
@@ -250,12 +251,13 @@ export class GameScene extends PIXI.Container
             closestObject.currentShape.y = closestObject.currentShape.initialY;
         }
 
-        // if there was a closest roboFrame calculated, stick the roboPart to it and replace its currentShape
+        // if there was a closest roboFrame calculated, stick the roboPart to it 
+        // also, update its currentShape and make the frame transparent
         if (closestObject) {
             this.x = closestObject.x;
             this.y = closestObject.y;
             closestObject.currentShape = this;
-            // closestObject.alpha = 0;
+            closestObject.alpha = 0;
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
