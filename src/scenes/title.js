@@ -13,11 +13,14 @@ export class TitleScene extends PIXI.Container
     async preload()
     {
         PIXI.Assets.add({alias: 'titleBG', src: './assets/backgrounds/botbuilderfrontpage.png'});
+
         PIXI.Assets.add({alias: 'buildYourRobot', src: './assets/gameSelectionBtns/buildYourRobot.png'});
-        PIXI.Assets.add({alias: 'roboPuzzle', src: './assets/gameSelectionBtns/roboPuzzle.png'})
+        PIXI.Assets.add({alias: 'roboPuzzle', src: './assets/gameSelectionBtns/roboPuzzle.png'});
+
+        PIXI.Assets.add({alias: 'narrator', src: './assets/narratorbot.png'});
 
         this.backgroundTexture = await PIXI.Assets.load('titleBG');
-        await PIXI.Assets.load(['buildYourRobot', 'roboPuzzle']);
+        await PIXI.Assets.load(['buildYourRobot', 'roboPuzzle', 'narrator']);
     }
 
     start()
@@ -36,6 +39,11 @@ export class TitleScene extends PIXI.Container
 
         this.addChild(puzzleBtn);
         this.addChild(buildYourOwnBtn);
+
+        let narrator = PIXI.Sprite.from('narrator');
+        narrator.anchor.set(0.5);
+        narrator.position.set(this.game.width / 2, this.game.height / 2);
+        this.addChild(narrator);
     }
 
     update()

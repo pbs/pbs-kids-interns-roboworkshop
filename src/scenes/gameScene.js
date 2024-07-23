@@ -246,7 +246,6 @@ export class GameScene extends PIXI.Container
 
         // if the target roboFrame already has a shape on it, return the shape on it back to its og position
         if (closestObject && closestObject.currentShape) {
-            //console.log(`oops! ${closestObject.shape} already has the ${closestObject.currentShape.shape} on it` );
             closestObject.currentShape.x = closestObject.currentShape.initialX;
             closestObject.currentShape.y = closestObject.currentShape.initialY;
         }
@@ -260,11 +259,6 @@ export class GameScene extends PIXI.Container
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
-
-            // if (closestObject.currentShape) {
-            //     closestObject.currentShape = null;
-            // }
-            
         }
     }
 
