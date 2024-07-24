@@ -6,13 +6,14 @@ export class toolbox extends PIXI.Sprite
     constructor({ x = 0, y = 0, closedBox = 'null', openBox = 'null' } = {})
     {
         
-        const texture = PIXI.Assets.get(closedBox);
-        super(texture);
+        const openTexture = PIXI.Assets.get(openBox);
+        const closedTexture = PIXI.Assets.get(closedBox);
+        super(closedTexture);
 
         // check which box image to display... starting with a closed box
         //let box = closedBox;
-        this.openBox = openBox;
-        this.closedBox = closedBox;
+        // this.openBox = openBox;
+        // this.closedBox = closedBox;
 
         this.x = x;
         this.y = y;
@@ -41,10 +42,10 @@ export class toolbox extends PIXI.Sprite
             // if the box is open, close it... otherwise, open it
             if (this.open) {
                 this.open = false;
-                this.texture = openBox;
+                this.texture = openTexture;
             } else {
                 this.open = true;
-                this.texture = closedBox;
+                this.texture = closedTexture;
             }
         });
 
