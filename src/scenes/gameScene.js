@@ -4,6 +4,7 @@ import * as PIXI from 'pixi.js';
 import { TitleScene } from './title';
 import { EndScene } from './endScene';
 import { roboFrame } from '../gameobjects/roboFrame';
+import { toolbox } from '../gameobjects/toolbox';
 
 export class GameScene extends PIXI.Container
 {
@@ -47,13 +48,20 @@ export class GameScene extends PIXI.Container
         PIXI.Assets.add({alias: 'next', src: './assets/navButtons/nextArrow.png'});
 
         /*
+        add toolbox textures
+        */
+        PIXI.Assets.add({alias: 'headBox', src: './assets/headtoolbox.png'});
+        PIXI.Assets.add({alias: 'headBoxOpen', src: './assets/headtoolboxOpen.png'})
+
+        /*
         now load all the textures
         */
         await PIXI.Assets.load(['workshopBG', 
-                                    'head', 'body', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg',
-                                    'hexagon', 'star', 'square', 
-                                    /* 'bounce', */ 
-                                    'back', 'next']);
+                                'head', 'body', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg',
+                                'hexagon', 'star', 'square', 
+                                /* 'bounce', */ 
+                                'back', 'next',
+                                'headBox', 'headBoxOpen']);
     }
 
     start()
@@ -88,27 +96,11 @@ export class GameScene extends PIXI.Container
                                         y: 200 + head.height + body.height, shape: 'rightLeg'});
         this.addChild(rightLeg);
 
-        console.log(`head height: ${head.height}`);
-        console.log(`body y: ${body.y}`);
-
         /*
-        add some shapes to this scene
+        add toolboxes
         */
-        let hexagon = new roboPart({ x: 900, y: 100, shape: 'hexagon' });
-        hexagon.scale.x *= 0.5;
-        hexagon.scale.y *= 0.5;
-        this.addChild(hexagon);
-
-        let star = new roboPart({ x: 250, y: 400, shape: 'star' });
-        this.addChild(star);
-        
-        let square = new roboPart({ x: 300, y: 180, shape: 'square'});
-        square.tint = 0xa608c9;
-        this.addChild(square);
-
-        let square2 = new roboPart({ x: 1000, y: 380, shape: 'square'});
-        square2.tint = 0x31ad3f;
-        this.addChild(square2);
+        let headBox = new toolbox({x: 450, y: this.game.height - 100,  closedBox: 'headBox', openBox: 'headBoxOpen'});
+        this.addChild(headBox);
 
         /*
         now add buttons to navigate back and forth
@@ -121,12 +113,9 @@ export class GameScene extends PIXI.Container
         backBtn.x = 270;
         backBtn.y = this.game.height - backBtn.height - 30;
 
-        // console.log(`backbtn x: ${backBtn.x}`);
-
         this.addChild(backBtn);
 
         let nextBtn = new button({ image: 'next'});
-        
         
         nextBtn.scale.x *= 0.5;
         nextBtn.scale.y *= 0.5;
@@ -169,11 +158,11 @@ export class GameScene extends PIXI.Container
     update(ticker) {
 
         this.children.forEach(child => {
-            if (child instanceof roboPart) {
+            if (child instanceof roboPart || child instanceof toolbox) {
                 child.update(ticker); // calls update from roboPart class
             }
         });
-        
+
     }
     
     onDragStart() {
@@ -271,6 +260,27 @@ export class GameScene extends PIXI.Container
     collision(object1, object2) {
         return (object1.x + object1.width > object2.x) && (object1.x < object2.x + object2.width)
             && (object1.y + object1.height > object2.y) && (object1.y < object2.y + object2.height);
+    }
+
+    displayHeadParts() {
+        /*
+        add some shapes to this scene
+        */
+        let hexagon = new roboPart({ x: 900, y: 100, shape: 'hexagon' });
+        hexagon.scale.x *= 0.5;
+        hexagon.scale.y *= 0.5;
+        this.addChild(hexagon);
+
+        let star = new roboPart({ x: 250, y: 400, shape: 'star' });
+        this.addChild(star);
+        
+        let square = new roboPart({ x: 300, y: 180, shape: 'square'});
+        square.tint = 0xa608c9;
+        this.addChild(square);
+
+        let square2 = new roboPart({ x: 1000, y: 380, shape: 'square'});
+        square2.tint = 0x31ad3f;
+        this.addChild(square2);
     }
 
     // add a dsstore, stores stuff that happens to the directory for mac os
