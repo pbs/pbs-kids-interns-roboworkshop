@@ -5,6 +5,7 @@ import { TitleScene } from './title';
 import { EndScene } from './endScene';
 import { roboFrame } from '../gameobjects/roboFrame';
 import { toolbox } from '../gameobjects/toolbox';
+import { BODYPARTS } from '../constants';
 
 export class GameScene extends PIXI.Container
 {
@@ -73,6 +74,9 @@ export class GameScene extends PIXI.Container
         // setting interactiveChildren here could be useful
         this.interactiveChildren = true;
 
+        // enum for each body part, to be used for determining the roboParts' types
+        
+
         /*
         add the robot's frame
         */
@@ -99,8 +103,27 @@ export class GameScene extends PIXI.Container
         /*
         add toolboxes
         */
-        let headBox = new toolbox({x: 450, y: this.game.height - 100,  closedBox: 'headBox', openBox: 'headBoxOpen'});
+        let headBox = new toolbox({x: 450, y: this.game.height - 100,  closedBox: 'headBox', openBox: 'headBoxOpen', type: BODYPARTS.HEAD});
         this.addChild(headBox);
+
+        /*
+        add roboParts to the scene
+        */
+        let hexagon = new roboPart({ x: 900, y: 100, shape: 'hexagon', type: BODYPARTS.HEAD });
+        hexagon.scale.x *= 0.5;
+        hexagon.scale.y *= 0.5;
+        this.addChild(hexagon);
+
+        let star = new roboPart({ x: 250, y: 400, shape: 'star', type: BODYPARTS.HEAD });
+        this.addChild(star);
+
+        let square = new roboPart({ x: 300, y: 180, shape: 'square', type: BODYPARTS.HEAD});
+        square.tint = 0xa608c9;
+        this.addChild(square);
+
+        let square2 = new roboPart({ x: 1000, y: 380, shape: 'square', type: BODYPARTS.HEAD});
+        square2.tint = 0x31ad3f;
+        this.addChild(square2);
 
         /*
         now add buttons to navigate back and forth
@@ -157,10 +180,32 @@ export class GameScene extends PIXI.Container
     
     update(ticker) {
 
+        let hideShapes = false;
+
         this.children.forEach(child => {
+
             if (child instanceof roboPart || child instanceof toolbox) {
-                child.update(ticker); // calls update from roboPart class
+                child.update(ticker); // calls update from roboPart or toolbox class
             }
+
+            if (child instanceof toolbox) {
+                if (child.open) {
+                    switch(child.type) {
+                        case BODYPARTS.HEAD:
+                            this.displayHeadParts();
+                            break;
+                    }
+                } else {
+                    hideShapes = true;
+                }
+            }
+
+            if (hideShapes) {
+                if (child instanceof roboPart && !child.onFrame) { 
+                    child.visible = false;
+                }
+            }
+        
         });
 
     }
@@ -177,6 +222,7 @@ export class GameScene extends PIXI.Container
                 if (child.currentShape === this) {
                     child.currentShape = null;
                     child.alpha = 1;
+                    child.onFrame = false;
                 }
             }
         });
@@ -238,6 +284,7 @@ export class GameScene extends PIXI.Container
         if (closestObject && closestObject.currentShape) {
             closestObject.currentShape.x = closestObject.currentShape.initialX;
             closestObject.currentShape.y = closestObject.currentShape.initialY;
+            closestObject.currentShape.onFrame = false;
         }
 
         // if there was a closest roboFrame calculated, stick the roboPart to it 
@@ -247,9 +294,11 @@ export class GameScene extends PIXI.Container
             this.y = closestObject.y;
             closestObject.currentShape = this;
             closestObject.alpha = 0;
+            this.onFrame = true;
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
+            this.onFrame = false;
         }
     }
 
@@ -263,24 +312,13 @@ export class GameScene extends PIXI.Container
     }
 
     displayHeadParts() {
-        /*
-        add some shapes to this scene
-        */
-        let hexagon = new roboPart({ x: 900, y: 100, shape: 'hexagon' });
-        hexagon.scale.x *= 0.5;
-        hexagon.scale.y *= 0.5;
-        this.addChild(hexagon);
-
-        let star = new roboPart({ x: 250, y: 400, shape: 'star' });
-        this.addChild(star);
-        
-        let square = new roboPart({ x: 300, y: 180, shape: 'square'});
-        square.tint = 0xa608c9;
-        this.addChild(square);
-
-        let square2 = new roboPart({ x: 1000, y: 380, shape: 'square'});
-        square2.tint = 0x31ad3f;
-        this.addChild(square2);
+        this.children.forEach(child => {
+            if (child instanceof roboPart) {
+                if (child.type === BODYPARTS.HEAD) {
+                    child.visible = true;
+                }
+            }
+        });
     }
 
     // add a dsstore, stores stuff that happens to the directory for mac os

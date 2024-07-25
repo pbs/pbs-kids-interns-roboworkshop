@@ -3,23 +3,19 @@ import * as PIXI from 'pixi.js';
 export class toolbox extends PIXI.Sprite
 {
     // why is it formtted this way? instead of just x, y, shape
-    constructor({ x = 0, y = 0, closedBox = 'null', openBox = 'null' } = {})
+    constructor({ x = 0, y = 0, closedBox = 'null', openBox = 'null', type = 'null' } = {})
     {
         
         const openTexture = PIXI.Assets.get(openBox);
         const closedTexture = PIXI.Assets.get(closedBox);
-        super(closedTexture);
-
-        // check which box image to display... starting with a closed box
-        //let box = closedBox;
-        // this.openBox = openBox;
-        // this.closedBox = closedBox;
+        super(closedTexture); // the box starts out as closed
 
         this.x = x;
         this.y = y;
 
         // this.box = box; // to help with debugging
         this.open = false; // toolbox is yet to be opened/used
+        this.type = type;
 
         this.anchor.set(0.5, 0.5);
         this.position.set(x, y);
@@ -42,10 +38,10 @@ export class toolbox extends PIXI.Sprite
             // if the box is open, close it... otherwise, open it
             if (this.open) {
                 this.open = false;
-                this.texture = openTexture;
+                this.texture = closedTexture;
             } else {
                 this.open = true;
-                this.texture = closedTexture;
+                this.texture = openTexture;
             }
         });
 
