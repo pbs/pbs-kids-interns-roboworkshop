@@ -17,6 +17,9 @@ export class toolbox extends PIXI.Sprite
         this.open = false; // toolbox is yet to be opened/used
         this.type = type;
 
+        this.closedTexture = closedTexture;
+        this.openTexture = openTexture;
+
         this.anchor.set(0.5, 0.5);
         this.position.set(x, y);
 
@@ -33,17 +36,17 @@ export class toolbox extends PIXI.Sprite
             this.alpha = 1;
         });
 
-        this.on('pointerdown', () =>
-        {
-            // if the box is open, close it... otherwise, open it
-            if (this.open) {
-                this.open = false;
-                this.texture = closedTexture;
-            } else {
-                this.open = true;
-                this.texture = openTexture;
-            }
-        });
+        // this.on('pointerdown', () =>
+        // {
+        //     // if the box is open, close it... otherwise, open it
+        //     if (this.open) {
+        //         this.open = false;
+        //         this.texture = closedTexture;
+        //     } else {
+        //         this.open = true;
+        //         this.texture = openTexture;
+        //     }
+        // });
 
     }
     

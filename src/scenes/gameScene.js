@@ -205,6 +205,8 @@ export class GameScene extends PIXI.Container
                 child.on('pointerup', this.onDragEnd);
                 child.on('pointerupoutside', this.onDragEnd);
 
+            } else if (child instanceof toolbox) {
+                child.on('pointerdown', this.onClick);
             }
         }.bind(this));
     }
@@ -368,6 +370,31 @@ export class GameScene extends PIXI.Container
         });
         
     } 
+
+    onClick() {
+        // if the box is open, close it... otherwise, open it
+        let currToolbox = null;
+
+        this.parent.children.forEach(child => {
+            if (child instanceof toolbox) {
+                if (!child.open) {
+                    if (currToolbox) {
+                        currToolbox.open = false;
+                    }
+                    child.open = true;
+                    child.texture = child.openTexture
+                    currToolbox = child;
+                } else if (child.open) {
+                    child.open = false;
+                    child.texture = child.closedTexture;
+                    // currToolbox = null;
+                }
+            }
+        });
+        
+    }
     // add a dsstore, stores stuff that happens to the directory for mac os
     // look into containers and display objects: graphical objects that can be moved around
+
+    // to be fixed: make only one box open at a time, consider making the roboframe non-editable if no toolbox is open
 }
