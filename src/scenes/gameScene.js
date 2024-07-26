@@ -51,8 +51,17 @@ export class GameScene extends PIXI.Container
         /*
         add toolbox textures
         */
-        PIXI.Assets.add({alias: 'headBox', src: './assets/headtoolbox.png'});
-        PIXI.Assets.add({alias: 'headBoxOpen', src: './assets/headtoolboxOpen.png'})
+        PIXI.Assets.add({alias: 'headBox', src: './assets/toolboxes/headtoolbox.png'});
+        PIXI.Assets.add({alias: 'headBoxOpen', src: './assets/toolboxes/headtoolboxOpen.png'});
+
+        PIXI.Assets.add({alias: 'bodyBox', src: './assets/toolboxes/bodyBoxClosed.png'});
+        PIXI.Assets.add({alias: 'bodyBoxOpen', src: './assets/toolboxes/bodyBoxOpen.png'});
+
+        PIXI.Assets.add({alias: 'armBox', src: './assets/toolboxes/armBoxClosed.png'});
+        PIXI.Assets.add({alias: 'armBoxOpen', src: './assets/toolboxes/armBoxOpen.png'});
+
+        PIXI.Assets.add({alias: 'legBox', src: './assets/toolboxes/legBoxClosed.png'});
+        PIXI.Assets.add({alias: 'legBoxOpen', src: './assets/toolboxes/legBoxOpen.png'});
 
         /*
         now load all the textures
@@ -62,7 +71,7 @@ export class GameScene extends PIXI.Container
                                 'hexagon', 'star', 'square', 
                                 /* 'bounce', */ 
                                 'back', 'next',
-                                'headBox', 'headBoxOpen']);
+                                'headBox', 'headBoxOpen', 'bodyBox', 'bodyBoxOpen', 'armBox', 'armBoxOpen', 'legBox', 'legBoxOpen']);
     }
 
     start()
@@ -106,6 +115,15 @@ export class GameScene extends PIXI.Container
         let headBox = new toolbox({x: 450, y: this.game.height - 100,  closedBox: 'headBox', openBox: 'headBoxOpen', type: BODYPARTS.HEAD});
         this.addChild(headBox);
 
+        let bodyBox = new toolbox({x: 600, y: this.game.height - 100,  closedBox: 'bodyBox', openBox: 'bodyBoxOpen', type: BODYPARTS.BODY});
+        this.addChild(bodyBox);
+
+        let armBox = new toolbox({x: 750, y: this.game.height - 100,  closedBox: 'armBox', openBox: 'armBoxOpen', type: BODYPARTS.ARM});
+        this.addChild(armBox);
+
+        let legBox = new toolbox({x: 900, y: this.game.height - 100,  closedBox: 'legBox', openBox: 'legBoxOpen', type: BODYPARTS.LEG});
+        this.addChild(legBox);
+
         /*
         add roboParts to the scene
         */
@@ -124,6 +142,20 @@ export class GameScene extends PIXI.Container
         let square2 = new roboPart({ x: 1000, y: 380, shape: 'square', type: BODYPARTS.HEAD});
         square2.tint = 0x31ad3f;
         this.addChild(square2);
+
+        let star2 = new roboPart({ x: 250, y: 400, shape: 'star', type: BODYPARTS.BODY });
+        star2.tint = 0xa763ff;
+        this.addChild(star2);
+
+        let hex2 = new roboPart({ x: 900, y: 100, shape: 'hexagon', type: BODYPARTS.ARM });
+        hex2.scale.x *= 0.5;
+        hex2.scale.y *= 0.5;
+        hex2.tint = 0xa763ff;
+        this.addChild(hex2);
+
+        let square3 = new roboPart({ x: 1000, y: 380, shape: 'square', type: BODYPARTS.LEG});
+        square3.tint = 0xf542cb;
+        this.addChild(square3);
 
         /*
         now add buttons to navigate back and forth
@@ -180,7 +212,7 @@ export class GameScene extends PIXI.Container
     
     update(ticker) {
 
-        let hideShapes = false;
+        // let hideShapes = false;
 
         this.children.forEach(child => {
 
@@ -192,17 +224,20 @@ export class GameScene extends PIXI.Container
                 if (child.open) {
                     switch(child.type) {
                         case BODYPARTS.HEAD:
-                            this.displayHeadParts();
+                            this.displayParts(BODYPARTS.HEAD);
+                            break;
+                        case BODYPARTS.BODY:
+                            this.displayParts(BODYPARTS.BODY);
+                            break;
+                        case BODYPARTS.ARM:
+                            this.displayParts(BODYPARTS.ARM);
+                            break;
+                        case BODYPARTS.LEG:
+                            this.displayParts(BODYPARTS.LEG);
                             break;
                     }
                 } else {
-                    hideShapes = true;
-                }
-            }
-
-            if (hideShapes) {
-                if (child instanceof roboPart && !child.onFrame) { 
-                    child.visible = false;
+                    this.hideShapes(child);
                 }
             }
         
@@ -311,16 +346,28 @@ export class GameScene extends PIXI.Container
             && (object1.y + object1.height > object2.y) && (object1.y < object2.y + object2.height);
     }
 
-    displayHeadParts() {
+    displayParts(roboPartType) {
         this.children.forEach(child => {
             if (child instanceof roboPart) {
-                if (child.type === BODYPARTS.HEAD) {
+                if (child.type === roboPartType) {
                     child.visible = true;
+                    // console.log(child.shape, child.visible);
                 }
             }
         });
     }
 
+    hideShapes(toolbox) {
+
+        this.children.forEach (child => {
+            if (child instanceof roboPart) {
+                if (child.type === toolbox.type && !child.onFrame) {
+                    child.visible = false;
+                }
+            }
+        });
+        
+    } 
     // add a dsstore, stores stuff that happens to the directory for mac os
     // look into containers and display objects: graphical objects that can be moved around
 }

@@ -15,7 +15,7 @@ export class roboFrame extends PIXI.Sprite
         this.position.set(x, y);
 
         this.eventMode = 'static';
-        this.cursor = 'pointer'; 
+        // this.cursor = 'pointer'; 
 
         /*
         this.on('pointerover', () =>

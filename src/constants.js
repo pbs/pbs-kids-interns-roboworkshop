@@ -8,8 +8,6 @@ export const BODYPARTS = Object.freeze(
 {
     HEAD: 1, 
     BODY: 2, 
-    LEFTARM: 3, 
-    RIGHTARM: 4, 
-    LEFTLEG: 5, 
-    RIGHTLEG: 6
+    ARM: 3, 
+    LEG: 4
 });
