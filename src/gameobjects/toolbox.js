@@ -36,28 +36,11 @@ export class toolbox extends PIXI.Sprite
             this.alpha = 1;
         });
 
-        // this.on('pointerdown', () =>
-        // {
-        //     // if the box is open, close it... otherwise, open it
-        //     if (this.open) {
-        //         this.open = false;
-        //         this.texture = closedTexture;
-        //     } else {
-        //         this.open = true;
-        //         this.texture = openTexture;
-        //     }
-        // });
-
     }
     
     update()
     {
-        
-        // switch(toolboxOpen) {
-        //     case headBox:
-        //         this.displayHeadParts();
-        //         break;
-        // } 
+        // nothing to update
     }
     
 }

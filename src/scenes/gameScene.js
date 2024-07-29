@@ -192,9 +192,10 @@ export class GameScene extends PIXI.Container
         });
 
         /*
-        make the objects draggable
+        add interactions
         */
-        this.dragTarget = null;
+        this.dragTarget = null; // track shapes being dragged
+        this.currToolbox = null; // track toolboxes being opened/closed
 
         // turn on listeners
         this.children.forEach(function (child) { 
@@ -339,6 +340,26 @@ export class GameScene extends PIXI.Container
         }
     }
 
+    onClick() {
+
+        // if the box is closed, open it... otherwise, close it
+
+        if (!this.open) {
+            if (this.parent.currToolbox) { // check if there's already an open toolbox before opening this one: if so, close that one
+                this.parent.currToolbox.open = false;
+                this.parent.currToolbox.texture = this.parent.currToolbox.closedTexture;
+            }
+            this.open = true;
+            this.texture = this.openTexture;
+            this.parent.currToolbox = this;
+        } else {
+            this.open = false;
+            this.texture = this.closedTexture;
+            this.parent.currToolbox = null;
+        }
+        
+    }
+
     calculateDistance(object1, object2) {
         return Math.sqrt(Math.pow(object1.x - object2.x, 2) + Math.pow(object1.y - object2.y, 2));
     }
@@ -371,28 +392,7 @@ export class GameScene extends PIXI.Container
         
     } 
 
-    onClick() {
-        // if the box is open, close it... otherwise, open it
-        let currToolbox = null;
-
-        this.parent.children.forEach(child => {
-            if (child instanceof toolbox) {
-                if (!child.open) {
-                    if (currToolbox) {
-                        currToolbox.open = false;
-                    }
-                    child.open = true;
-                    child.texture = child.openTexture
-                    currToolbox = child;
-                } else if (child.open) {
-                    child.open = false;
-                    child.texture = child.closedTexture;
-                    // currToolbox = null;
-                }
-            }
-        });
-        
-    }
+    
     // add a dsstore, stores stuff that happens to the directory for mac os
     // look into containers and display objects: graphical objects that can be moved around
 
