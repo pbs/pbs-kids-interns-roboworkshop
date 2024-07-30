@@ -17,61 +17,11 @@ export class GameScene extends PIXI.Container
 
     async preload()
     {
-        /*
-        add this lvl's bkgd
-        */
+        // add this lvl's bkgd
         PIXI.Assets.add({alias: 'workshopBG', src: './assets/backgrounds/Botbuilderbackground.png'});
-
-        /*
-        add roboframe parts
-        */
-        PIXI.Assets.add({alias: 'head', src: './assets/roboFrameParts/bothead.png'});
-        PIXI.Assets.add({alias: 'body', src: './assets/roboFrameParts/Botbody.png'});
-        PIXI.Assets.add({alias: 'leftArm', src: './assets/roboFrameParts/leftbotarm.png'});
-        PIXI.Assets.add({alias: 'rightArm', src: './assets/roboFrameParts/rightbotarm.png'});
-        PIXI.Assets.add({alias: 'leftLeg', src: './assets/roboFrameParts/leftbotleg.png'});
-        PIXI.Assets.add({alias: 'rightLeg', src: './assets/roboFrameParts/rightbotleg.png'});
-
-        /*
-        add shape textures
-        */
-        PIXI.Assets.add({alias: 'hexagon', src: './assets/shapes/hexagon.png'});
-        PIXI.Assets.add({alias: 'star', src: './assets/shapes/star.png'});
-        PIXI.Assets.add({alias: 'square', src: './assets/shapes/whitesquare120x120.png'});
         
-        // sounds can be loaded here
-        // PIXI.Assets.add({alias: 'bounce', src: './assets/bounce.mp3'});
-
-        /*
-        add button textures
-        */
-        PIXI.Assets.add({alias: 'back', src: './assets/navButtons/backArrow.png'});
-        PIXI.Assets.add({alias: 'next', src: './assets/navButtons/nextArrow.png'});
-
-        /*
-        add toolbox textures
-        */
-        PIXI.Assets.add({alias: 'headBox', src: './assets/toolboxes/headtoolbox.png'});
-        PIXI.Assets.add({alias: 'headBoxOpen', src: './assets/toolboxes/headtoolboxOpen.png'});
-
-        PIXI.Assets.add({alias: 'bodyBox', src: './assets/toolboxes/bodyBoxClosed.png'});
-        PIXI.Assets.add({alias: 'bodyBoxOpen', src: './assets/toolboxes/bodyBoxOpen.png'});
-
-        PIXI.Assets.add({alias: 'armBox', src: './assets/toolboxes/armBoxClosed.png'});
-        PIXI.Assets.add({alias: 'armBoxOpen', src: './assets/toolboxes/armBoxOpen.png'});
-
-        PIXI.Assets.add({alias: 'legBox', src: './assets/toolboxes/legBoxClosed.png'});
-        PIXI.Assets.add({alias: 'legBoxOpen', src: './assets/toolboxes/legBoxOpen.png'});
-
-        /*
-        now load all the textures
-        */
-        await PIXI.Assets.load(['workshopBG', 
-                                'head', 'body', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg',
-                                'hexagon', 'star', 'square', 
-                                /* 'bounce', */ 
-                                'back', 'next',
-                                'headBox', 'headBoxOpen', 'bodyBox', 'bodyBoxOpen', 'armBox', 'armBoxOpen', 'legBox', 'legBoxOpen']);
+        // load the textures
+        await PIXI.Assets.load(['workshopBG', 'spritesheet']);
     }
 
     start()
@@ -81,101 +31,97 @@ export class GameScene extends PIXI.Container
         this.addChild(scalerBackground);
 
         // setting interactiveChildren here could be useful
-        this.interactiveChildren = true;
-
-        // enum for each body part, to be used for determining the roboParts' types
-        
+        this.interactiveChildren = true;        
 
         /*
         add the robot's frame
         */
-        let head = new roboFrame({ x: this.game.width / 2, y: 150, shape: 'head'});
+        let head = new roboFrame({ x: this.game.width / 2, y: 150, image: "roboFrameParts/bothead.png"});
         this.addChild(head);
 
-        let body = new roboFrame({ x: this.game.width / 2, y: 150 + head.height, shape: 'body'});
+        let body = new roboFrame({ x: this.game.width / 2, y: 150 + head.height, image: "roboFrameParts/Botbody.png"});
         this.addChild(body);
 
-        let leftArm = new roboFrame({ x: this.game.width / 2 - body.width , y: 150 + head.height, shape: 'leftArm'});
+        let leftArm = new roboFrame({ x: this.game.width / 2 - body.width , y: 150 + head.height, image: "roboFrameParts/leftbotarm.png"});
         this.addChild(leftArm);
 
-        let rightArm = new roboFrame({ x: this.game.width / 2 + body.width , y: 150 + head.height, shape: 'rightArm'});
+        let rightArm = new roboFrame({ x: this.game.width / 2 + body.width , y: 150 + head.height, image: "roboFrameParts/rightbotarm.png"});
         this.addChild(rightArm);
 
         let leftLeg = new roboFrame({ x: this.game.width / 2 - body.height / 2, 
-                                        y: 200 + head.height + body.height, shape: 'leftLeg'});
+                                        y: 200 + head.height + body.height, image: "roboFrameParts/leftbotleg.png"});
         this.addChild(leftLeg);
 
         let rightLeg = new roboFrame({ x: this.game.width / 2  + body.height / 2, 
-                                        y: 200 + head.height + body.height, shape: 'rightLeg'});
+                                        y: 200 + head.height + body.height, image: "roboFrameParts/rightbotleg.png"});
         this.addChild(rightLeg);
 
         /*
         add toolboxes
         */
-        let headBox = new toolbox({x: 450, y: this.game.height - 100,  closedBox: 'headBox', openBox: 'headBoxOpen', type: BODYPARTS.HEAD});
+        let headBox = new toolbox({x: 450, y: this.game.height - 100,  
+                                    closedBox: "toolboxes/headtoolbox.png", openBox: "toolboxes/headtoolboxOpen.png", 
+                                    type: BODYPARTS.HEAD});
         this.addChild(headBox);
 
-        let bodyBox = new toolbox({x: 600, y: this.game.height - 100,  closedBox: 'bodyBox', openBox: 'bodyBoxOpen', type: BODYPARTS.BODY});
+        let bodyBox = new toolbox({x: 600, y: this.game.height - 100,  
+                                    closedBox: "toolboxes/bodyBoxClosed.png", openBox: "toolboxes/bodyBoxOpen.png", 
+                                    type: BODYPARTS.BODY});
         this.addChild(bodyBox);
 
-        let armBox = new toolbox({x: 750, y: this.game.height - 100,  closedBox: 'armBox', openBox: 'armBoxOpen', type: BODYPARTS.ARM});
+        let armBox = new toolbox({x: 750, y: this.game.height - 100,  
+                                    closedBox: "toolboxes/armBoxClosed.png", openBox: "toolboxes/armBoxOpen.png", 
+                                    type: BODYPARTS.ARM});
         this.addChild(armBox);
 
-        let legBox = new toolbox({x: 900, y: this.game.height - 100,  closedBox: 'legBox', openBox: 'legBoxOpen', type: BODYPARTS.LEG});
+        let legBox = new toolbox({x: 900, y: this.game.height - 100,  
+                                    closedBox: "toolboxes/legBoxClosed.png", openBox: "toolboxes/legBoxOpen.png", 
+                                    type: BODYPARTS.LEG});
         this.addChild(legBox);
 
         /*
-        add roboParts to the scene
+        add roboParts
         */
-        let hexagon = new roboPart({ x: 900, y: 100, shape: 'hexagon', type: BODYPARTS.HEAD });
-        hexagon.scale.x *= 0.5;
-        hexagon.scale.y *= 0.5;
+        let hexagon = new roboPart({ x: 900, y: 100, image: "shapes/hexagon.png", type: BODYPARTS.HEAD });
         this.addChild(hexagon);
 
-        let star = new roboPart({ x: 250, y: 400, shape: 'star', type: BODYPARTS.HEAD });
+        let star = new roboPart({ x: 250, y: 400, image: "shapes/star.png", type: BODYPARTS.HEAD });
         this.addChild(star);
 
-        let square = new roboPart({ x: 300, y: 180, shape: 'square', type: BODYPARTS.HEAD});
+        let square = new roboPart({ x: 300, y: 180, image: "shapes/whitesquare120x120.png", type: BODYPARTS.HEAD});
         square.tint = 0xa608c9;
         this.addChild(square);
 
-        let square2 = new roboPart({ x: 1000, y: 380, shape: 'square', type: BODYPARTS.HEAD});
+        let square2 = new roboPart({ x: 1000, y: 380, image:"shapes/whitesquare120x120.png", type: BODYPARTS.HEAD});
         square2.tint = 0x31ad3f;
         this.addChild(square2);
 
-        let star2 = new roboPart({ x: 250, y: 400, shape: 'star', type: BODYPARTS.BODY });
+        let star2 = new roboPart({ x: 250, y: 400, image: "shapes/star.png", type: BODYPARTS.BODY });
         star2.tint = 0xa763ff;
         this.addChild(star2);
 
-        let hex2 = new roboPart({ x: 900, y: 100, shape: 'hexagon', type: BODYPARTS.ARM });
-        hex2.scale.x *= 0.5;
-        hex2.scale.y *= 0.5;
+        let hex2 = new roboPart({ x: 900, y: 100, image: "shapes/hexagon.png", type: BODYPARTS.ARM });
         hex2.tint = 0xa763ff;
         this.addChild(hex2);
 
-        let square3 = new roboPart({ x: 1000, y: 380, shape: 'square', type: BODYPARTS.LEG});
+        let square3 = new roboPart({ x: 1000, y: 380, image: "shapes/whitesquare120x120.png", type: BODYPARTS.LEG});
         square3.tint = 0xf542cb;
         this.addChild(square3);
 
         /*
         now add buttons to navigate back and forth
         */
-        let backBtn = new button({ image: 'back'});
+        let backBtn = new button({ image: "navButtons/backArrow.png" });
 
-        //scale before transform so coordinates get adjusted correctly
-        backBtn.scale.x *= 0.5;
-        backBtn.scale.y *= 0.5;
         backBtn.x = 270;
         backBtn.y = this.game.height - backBtn.height - 30;
 
         this.addChild(backBtn);
 
-        let nextBtn = new button({ image: 'next'});
+        let nextBtn = new button({ image: "navButtons/nextArrow.png" });
         
-        nextBtn.scale.x *= 0.5;
-        nextBtn.scale.y *= 0.5;
-        nextBtn.x = this.game.width - nextBtn.width - 110;
-        nextBtn.y = this.game.height - nextBtn.height - 20;
+        nextBtn.x = this.game.width - nextBtn.width - 130;
+        nextBtn.y = this.game.height - nextBtn.height - 30;
 
         this.addChild(nextBtn);
 
@@ -214,8 +160,6 @@ export class GameScene extends PIXI.Container
 
     
     update(ticker) {
-
-        // let hideShapes = false;
 
         this.children.forEach(child => {
 
@@ -303,8 +247,6 @@ export class GameScene extends PIXI.Container
 
                 } else {
                     
-                    // child.alpha = 1;
-
                     // if the current shape being dragged is no longer colliding with a roboFrame, return it to its og position
                     if (child.currentShape === this) {
                         child.currentShape = null; // additionally, the roboFrame no longer has a shape on it
@@ -374,7 +316,6 @@ export class GameScene extends PIXI.Container
             if (child instanceof roboPart) {
                 if (child.type === roboPartType) {
                     child.visible = true;
-                    // console.log(child.shape, child.visible);
                 }
             }
         });
@@ -396,5 +337,5 @@ export class GameScene extends PIXI.Container
     // add a dsstore, stores stuff that happens to the directory for mac os
     // look into containers and display objects: graphical objects that can be moved around
 
-    // to be fixed: make only one box open at a time, consider making the roboframe non-editable if no toolbox is open
+    // to be fixed: if you drag off a shape and its toolbox is closed, open its home toolbox before returning it
 }

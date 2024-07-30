@@ -3,15 +3,16 @@ import * as PIXI from 'pixi.js';
 export class roboPart extends PIXI.Sprite
 {
     // why is it formtted this way? instead of just x, y, shape
-    constructor({ x = 0, y = 0, shape = 'null', type = 'null' } = {})
+    constructor({ x = 0, y = 0, image = 'null', shape = 'null', type = 'null' } = {})
     {
-        const texture = PIXI.Assets.get(shape);
+        const texture = PIXI.Assets.get(image);
         super(texture);
 
         this.initialX = x;
         this.initialY = y;
 
         this.shape = shape; // to help with debugging
+
         this.type = type;
         this.onFrame = false; // not yet attached to the frame
 
@@ -27,7 +28,6 @@ export class roboPart extends PIXI.Sprite
     update()
     {
         // nothing to keep track of
-        
     }
     
     // have a draggable class that robopart inherits from?

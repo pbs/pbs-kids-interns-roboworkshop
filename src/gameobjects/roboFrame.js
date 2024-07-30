@@ -2,9 +2,9 @@ import * as PIXI from 'pixi.js';
 
 export class roboFrame extends PIXI.Sprite
 {
-    constructor({ x = 0, y = 0, shape = 'null'} = {})
+    constructor({ x = 0, y = 0, image = 'null', shape = 'null'} = {})
     {
-        const texture = PIXI.Assets.get(shape);
+        const texture = PIXI.Assets.get(image);
         super(texture);
 
         this.currentShape = null; // no shape that's currently on top of the frame yet
@@ -15,19 +15,6 @@ export class roboFrame extends PIXI.Sprite
         this.position.set(x, y);
 
         this.eventMode = 'static';
-        // this.cursor = 'pointer'; 
-
-        /*
-        this.on('pointerover', () =>
-        {
-            this.alpha = 0.75;
-        });
-
-        this.on('pointerleave', () =>
-        {
-            this.alpha = 1;
-        });
-        */
     }
     
     update()

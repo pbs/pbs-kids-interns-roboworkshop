@@ -2,7 +2,6 @@ import * as PIXI from 'pixi.js';
 
 export class toolbox extends PIXI.Sprite
 {
-    // why is it formtted this way? instead of just x, y, shape
     constructor({ x = 0, y = 0, closedBox = 'null', openBox = 'null', type = 'null' } = {})
     {
         
@@ -13,7 +12,6 @@ export class toolbox extends PIXI.Sprite
         this.x = x;
         this.y = y;
 
-        // this.box = box; // to help with debugging
         this.open = false; // toolbox is yet to be opened/used
         this.type = type;
 
