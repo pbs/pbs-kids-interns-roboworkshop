@@ -14,15 +14,10 @@ export class TitleScene extends PIXI.Container
     {
         PIXI.Assets.add({alias: 'titleBG', src: './assets/backgrounds/botbuilderfrontpage.png'});
 
-        // PIXI.Assets.add({alias: 'buildYourRobot', src: './assets/gameSelectionBtns/buildYourRobot.png'});
-        // PIXI.Assets.add({alias: 'roboPuzzle', src: './assets/gameSelectionBtns/roboPuzzle.png'});
-
-        // PIXI.Assets.add({alias: 'narrator', src: './assets/narratorbot.png'});
-
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/main-spritesheet.json'});
 
         this.backgroundTexture = await PIXI.Assets.load('titleBG');
-        await PIXI.Assets.load([/*'buildYourRobot', 'roboPuzzle',*/ 'spritesheet', 'narrator']);
+        await PIXI.Assets.load(['spritesheet', 'narrator']);
     }
 
     start()

@@ -2,7 +2,7 @@ import { button } from '../gameobjects/button';
 import { roboPart } from '../gameobjects/roboPart';
 import * as PIXI from 'pixi.js';
 import { TitleScene } from './title';
-import { EndScene } from './endScene';
+import { DecorateScene } from './decorate';
 import { roboFrame } from '../gameobjects/roboFrame';
 import { toolbox } from '../gameobjects/toolbox';
 import { BODYPARTS } from '../constants';
@@ -13,6 +13,12 @@ export class GameScene extends PIXI.Container
     {
         super();
         this.game = game;
+        this.robot = new PIXI.Container();
+        
+        this.robot.x = this.game.width / 2;
+        this.robot.y = this.game.height / 2;
+        console.log(this.robot.position);
+        console.log(this.robot.width, this.robot.height);
     }
 
     async preload()
@@ -133,7 +139,7 @@ export class GameScene extends PIXI.Container
 
         nextBtn.on('pointerdown', () =>
         {
-            const nextScene = new EndScene(this.game);
+            const nextScene = new DecorateScene(this.game, this.robot);
             this.game.application.state.scene.value = nextScene;
         });
 
@@ -275,6 +281,17 @@ export class GameScene extends PIXI.Container
             closestObject.currentShape = this;
             closestObject.alpha = 0;
             this.onFrame = true;
+
+            if (this.parent.robot) {
+                this.parent.robot.addChild(this);
+            //     if (this.parent.robot.children) {
+            //         for (let i = 0; i < this.parent.robot.children.length; ++i) {
+            //             console.log(this.parent.robot.getChildAt(i));
+            //         }
+            //     }
+            }
+            
+            
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
