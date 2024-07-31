@@ -1,6 +1,6 @@
 import { GameScene } from './gameScene';
 import * as PIXI from 'pixi.js';
-import { button } from '../gameobjects/button'
+import { button } from '../gameobjects/button';
 
 export class TitleScene extends PIXI.Container
 {
@@ -13,11 +13,12 @@ export class TitleScene extends PIXI.Container
     async preload()
     {
         PIXI.Assets.add({alias: 'titleBG', src: './assets/backgrounds/botbuilderfrontpage.png'});
-
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/main-spritesheet.json'});
+        PIXI.Assets.add({alias: 'welcome', src: './assets/audio/workshopWelcome.mp3'});
+
 
         this.backgroundTexture = await PIXI.Assets.load('titleBG');
-        await PIXI.Assets.load(['spritesheet', 'narrator']);
+        await PIXI.Assets.load(['spritesheet', 'narrator', 'welcome']);
     }
 
     start()
@@ -41,6 +42,12 @@ export class TitleScene extends PIXI.Container
         narrator.anchor.set(0.5);
         narrator.position.set(this.game.width / 2, this.game.height / 2 + 50);
         this.addChild(narrator);
+
+        /*
+        narration VO
+        */
+        this.welcomeMsg = PIXI.Assets.get('welcome');
+        this.welcomeMsg.play();
     }
 
     update()
