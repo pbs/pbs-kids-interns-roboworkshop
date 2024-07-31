@@ -56,6 +56,7 @@ export class DecorateScene extends PIXI.Container
         });
 
         // this.addChild(this.robot);
+        // add all the robot parts that were chosen
         for (let i = 0; i < this.robot.length; ++i) {
             this.addChild(this.robot[i]);
         }

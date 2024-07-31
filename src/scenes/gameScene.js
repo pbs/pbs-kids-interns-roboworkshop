@@ -119,12 +119,13 @@ export class GameScene extends PIXI.Container
 
         this.addChild(backBtn);
 
-        let nextBtn = new button({ image: "navButtons/nextArrow.png" });
+        this.nextBtn = new button({ image: "navButtons/nextArrow.png" });
         
-        nextBtn.x = this.game.width - nextBtn.width - 130;
-        nextBtn.y = this.game.height - nextBtn.height - 30;
+        this.nextBtn.x = this.game.width - this.nextBtn.width - 130;
+        this.nextBtn.y = this.game.height - this.nextBtn.height - 30;
+        this.nextBtn.visible = false; // player hasn't completed robot yet
 
-        this.addChild(nextBtn);
+        this.addChild(this.nextBtn);
 
         backBtn.on('pointerdown', () =>
         {
@@ -132,7 +133,7 @@ export class GameScene extends PIXI.Container
             this.game.application.state.scene.value = prevScene;
         });
 
-        nextBtn.on('pointerdown', () =>
+        this.nextBtn.on('pointerdown', () =>
         {
             const nextScene = new DecorateScene(this.game, this.robot);
             this.game.application.state.scene.value = nextScene;
@@ -196,6 +197,12 @@ export class GameScene extends PIXI.Container
             }
         
         });
+
+        if (this.robot.length === 6) {
+            this.nextBtn.visible = true;
+        } else {
+            this.nextBtn.visible = false;
+        }
 
     }
     
@@ -272,27 +279,45 @@ export class GameScene extends PIXI.Container
             closestObject.currentShape.x = closestObject.currentShape.initialX;
             closestObject.currentShape.y = closestObject.currentShape.initialY;
             closestObject.currentShape.onFrame = false;
+
+            if (this.parent.robot && this.parent.robot.includes(closestObject.currentShape)) {
+                for (let i = 0; i < this.parent.robot.length; ++i) {
+                    if (closestObject.currentShape === this.parent.robot[i]) {
+                        this.parent.robot.splice(i, 1); // removes element at index i and resizes array
+                    }
+                }
+            }
         }
 
         // if there was a closest roboFrame calculated, stick the roboPart to it 
         // also, update its currentShape and make the frame transparent
         if (closestObject) {
+
             this.x = closestObject.x;
             this.y = closestObject.y;
             closestObject.currentShape = this;
             closestObject.alpha = 0;
             this.onFrame = true;
 
-            if (this.parent.robot) {
+            if (this.parent.robot && !this.parent.robot.includes(this)) {
                 this.parent.robot.push(this);
             }
-            
             
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
             this.onFrame = false;
+
+            if (this.parent.robot && this.parent.robot.includes(this)) {
+                for (let i = 0; i < this.parent.robot.length; ++i) {
+                    if (this === this.parent.robot[i]) {
+                        this.parent.robot.splice(i, 1); // removes element at index i and resizes array
+                    }
+                }
+            }
         }
+
+        // console.log(this.parent.robot);
     }
 
     onClick() {
