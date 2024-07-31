@@ -13,7 +13,7 @@ export class GameScene extends PIXI.Container
     {
         super();
         this.game = game;
-        this.robot = new PIXI.Container(); // holds all the shapes the player picks out
+        this.robot = []; // holds all the shapes the player picks out
     }
 
     async preload()
@@ -162,7 +162,7 @@ export class GameScene extends PIXI.Container
             }
         }.bind(this));
 
-        this.addChild(this.robot); // add it at the end to make sure the container's visible!
+        // this.addChild(this.robot); // add it at the end to make sure the container's visible!
     }
 
     
@@ -284,7 +284,7 @@ export class GameScene extends PIXI.Container
             this.onFrame = true;
 
             if (this.parent.robot) {
-                this.parent.robot.addChild(this);
+                this.parent.robot.push(this);
             }
             
             
