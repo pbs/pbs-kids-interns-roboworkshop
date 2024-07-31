@@ -13,12 +13,7 @@ export class GameScene extends PIXI.Container
     {
         super();
         this.game = game;
-        this.robot = new PIXI.Container();
-        
-        this.robot.x = this.game.width / 2;
-        this.robot.y = this.game.height / 2;
-        console.log(this.robot.position);
-        console.log(this.robot.width, this.robot.height);
+        this.robot = new PIXI.Container(); // holds all the shapes the player picks out
     }
 
     async preload()
@@ -88,7 +83,7 @@ export class GameScene extends PIXI.Container
         /*
         add roboParts
         */
-        let hexagon = new roboPart({ x: 900, y: 100, image: "shapes/hexagon.png", type: BODYPARTS.HEAD });
+        let hexagon = new roboPart({ x: 900, y: 100, image: "shapes/hexagon.png", shape: 'hexagon', type: BODYPARTS.HEAD });
         this.addChild(hexagon);
 
         let star = new roboPart({ x: 250, y: 400, image: "shapes/star.png", type: BODYPARTS.HEAD });
@@ -158,10 +153,16 @@ export class GameScene extends PIXI.Container
                 child.on('pointerup', this.onDragEnd);
                 child.on('pointerupoutside', this.onDragEnd);
 
+                if (child.onFrame) {
+                    child.on('pointerdown', this.onClick);
+                }
+
             } else if (child instanceof toolbox) {
                 child.on('pointerdown', this.onClick);
             }
         }.bind(this));
+
+        this.addChild(this.robot); // add it at the end to make sure the container's visible!
     }
 
     
@@ -284,11 +285,6 @@ export class GameScene extends PIXI.Container
 
             if (this.parent.robot) {
                 this.parent.robot.addChild(this);
-            //     if (this.parent.robot.children) {
-            //         for (let i = 0; i < this.parent.robot.children.length; ++i) {
-            //             console.log(this.parent.robot.getChildAt(i));
-            //         }
-            //     }
             }
             
             
@@ -302,20 +298,24 @@ export class GameScene extends PIXI.Container
     onClick() {
 
         // if the box is closed, open it... otherwise, close it
-
-        if (!this.open) {
-            if (this.parent.currToolbox) { // check if there's already an open toolbox before opening this one: if so, close that one
-                this.parent.currToolbox.open = false;
-                this.parent.currToolbox.texture = this.parent.currToolbox.closedTexture;
+        if (this instanceof toolbox) {
+            if (!this.open) {
+                if (this.parent.currToolbox) { // check if there's already an open toolbox before opening this one: if so, close that one
+                    this.parent.currToolbox.open = false;
+                    this.parent.currToolbox.texture = this.parent.currToolbox.closedTexture;
+                }
+                this.open = true;
+                this.texture = this.openTexture;
+                this.parent.currToolbox = this;
+            } else {
+                this.open = false;
+                this.texture = this.closedTexture;
+                this.parent.currToolbox = null;
             }
-            this.open = true;
-            this.texture = this.openTexture;
-            this.parent.currToolbox = this;
-        } else {
-            this.open = false;
-            this.texture = this.closedTexture;
-            this.parent.currToolbox = null;
+        } else if (this instanceof roboPart) {
+            this.tint = 0x000000;
         }
+        
         
     }
 

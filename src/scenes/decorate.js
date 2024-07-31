@@ -55,8 +55,7 @@ export class DecorateScene extends PIXI.Container
             this.game.application.state.scene.value = nextScene;
         });
 
-        this.robot.x = this.game.width / 2;
-        this.robot.y = this.game.height / 2;
+        this.addChild(this.robot);
     }
 
     update()
