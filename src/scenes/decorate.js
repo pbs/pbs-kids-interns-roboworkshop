@@ -55,9 +55,9 @@ export class DecorateScene extends PIXI.Container
             this.game.application.state.scene.value = nextScene;
         });
 
-        // this.addChild(this.robot);
-        // add all the robot parts that were chosen
+        // add all the robot parts that were chosen in the previous scene
         for (let i = 0; i < this.robot.length; ++i) {
+            this.robot[i].interactive = false;
             this.addChild(this.robot[i]);
         }
     }

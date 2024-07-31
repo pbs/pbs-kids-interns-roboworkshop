@@ -163,7 +163,6 @@ export class GameScene extends PIXI.Container
             }
         }.bind(this));
 
-        // this.addChild(this.robot); // add it at the end to make sure the container's visible!
     }
 
     
@@ -283,7 +282,7 @@ export class GameScene extends PIXI.Container
             if (this.parent.robot && this.parent.robot.includes(closestObject.currentShape)) {
                 for (let i = 0; i < this.parent.robot.length; ++i) {
                     if (closestObject.currentShape === this.parent.robot[i]) {
-                        this.parent.robot.splice(i, 1); // removes element at index i and resizes array
+                        this.parent.robot.splice(i, 1); // removes 1 element starting at index i and resizes array
                     }
                 }
             }
@@ -317,7 +316,6 @@ export class GameScene extends PIXI.Container
             }
         }
 
-        // console.log(this.parent.robot);
     }
 
     onClick() {
