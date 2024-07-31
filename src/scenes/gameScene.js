@@ -153,9 +153,9 @@ export class GameScene extends PIXI.Container
                 child.on('pointerup', this.onDragEnd);
                 child.on('pointerupoutside', this.onDragEnd);
 
-                if (child.onFrame) {
-                    child.on('pointerdown', this.onClick);
-                }
+                // if (child.onFrame) {
+                //     child.on('pointerdown', this.onClick);
+                // }
 
             } else if (child instanceof toolbox) {
                 child.on('pointerdown', this.onClick);
@@ -312,9 +312,10 @@ export class GameScene extends PIXI.Container
                 this.texture = this.closedTexture;
                 this.parent.currToolbox = null;
             }
-        } else if (this instanceof roboPart) {
+        } /* else if (this instanceof roboPart) {
             this.tint = 0x000000;
-        }
+            console.log("wromp");
+        } */
         
         
     }
