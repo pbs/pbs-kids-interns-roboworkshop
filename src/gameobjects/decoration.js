@@ -8,6 +8,9 @@ export class decoration extends PIXI.Sprite
         const texture = PIXI.Assets.get(image);
         super(texture);
 
+        this.initialX = x;
+        this.initialY = y;
+
         this.anchor.set(0.5, 0.5);
         this.position.set(x, y);
 

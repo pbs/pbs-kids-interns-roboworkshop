@@ -64,7 +64,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>5</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -173,6 +173,33 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../devAssets/sprites/decorations/eyes.png</key>
+            <key type="filename">../devAssets/sprites/decorations/lightbulb.png</key>
+            <key type="filename">../devAssets/sprites/decorations/tshirt.png</key>
+            <key type="filename">../devAssets/sprites/navButtons/backArrow.png</key>
+            <key type="filename">../devAssets/sprites/navButtons/homeButton.png</key>
+            <key type="filename">../devAssets/sprites/navButtons/nextArrow.png</key>
+            <key type="filename">../devAssets/sprites/navButtons/restart.png</key>
+            <key type="filename">../devAssets/sprites/toolboxes/armBoxClosed.png</key>
+            <key type="filename">../devAssets/sprites/toolboxes/armBoxOpen.png</key>
+            <key type="filename">../devAssets/sprites/toolboxes/bodyBoxClosed.png</key>
+            <key type="filename">../devAssets/sprites/toolboxes/bodyBoxOpen.png</key>
+            <key type="filename">../devAssets/sprites/toolboxes/legBoxClosed.png</key>
+            <key type="filename">../devAssets/sprites/toolboxes/legBoxOpen.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,25,50,50</rect>
+                <key>scale9Paddings</key>
+                <rect>25,25,50,50</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../devAssets/sprites/gameSelectionBtns/buildYourRobot.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -215,30 +242,6 @@
                 <rect>75,90,150,179</rect>
                 <key>scale9Paddings</key>
                 <rect>75,90,150,179</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../devAssets/sprites/navButtons/backArrow.png</key>
-            <key type="filename">../devAssets/sprites/navButtons/homeButton.png</key>
-            <key type="filename">../devAssets/sprites/navButtons/nextArrow.png</key>
-            <key type="filename">../devAssets/sprites/navButtons/restart.png</key>
-            <key type="filename">../devAssets/sprites/toolboxes/armBoxClosed.png</key>
-            <key type="filename">../devAssets/sprites/toolboxes/armBoxOpen.png</key>
-            <key type="filename">../devAssets/sprites/toolboxes/bodyBoxClosed.png</key>
-            <key type="filename">../devAssets/sprites/toolboxes/bodyBoxOpen.png</key>
-            <key type="filename">../devAssets/sprites/toolboxes/legBoxClosed.png</key>
-            <key type="filename">../devAssets/sprites/toolboxes/legBoxOpen.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>25,25,50,50</rect>
-                <key>scale9Paddings</key>
-                <rect>25,25,50,50</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
