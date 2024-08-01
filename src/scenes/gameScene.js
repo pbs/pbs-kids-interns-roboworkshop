@@ -6,6 +6,7 @@ import { DecorateScene } from './decorate';
 import { roboFrame } from '../gameobjects/roboFrame';
 import { toolbox } from '../gameobjects/toolbox';
 import { BODYPARTS } from '../constants';
+import { gameMath } from '../gameMath';
 
 export class GameScene extends PIXI.Container
 {
@@ -112,12 +113,12 @@ export class GameScene extends PIXI.Container
         /*
         now add buttons to navigate back and forth
         */
-        let backBtn = new button({ image: "navButtons/backArrow.png" });
+        let homeBtn = new button({ image: "navButtons/homeButton.png" });
 
-        backBtn.x = 270;
-        backBtn.y = this.game.height - backBtn.height - 30;
+        homeBtn.x = 270;
+        homeBtn.y = this.game.height - homeBtn.height - 30;
 
-        this.addChild(backBtn);
+        this.addChild(homeBtn);
 
         this.nextBtn = new button({ image: "navButtons/nextArrow.png" });
         
@@ -127,7 +128,7 @@ export class GameScene extends PIXI.Container
 
         this.addChild(this.nextBtn);
 
-        backBtn.on('pointerdown', () =>
+        homeBtn.on('pointerdown', () =>
         {
             const prevScene = new TitleScene(this.game);
             this.game.application.state.scene.value = prevScene;
@@ -248,10 +249,10 @@ export class GameScene extends PIXI.Container
 
             if (child instanceof roboFrame) {
 
-                if(this.parent.collision(this, child)) { // if the roboFrame is colliding with a roboPart
+                if (gameMath.collision(this, child)) { // if the roboFrame is colliding with a roboPart
 
                     // calculate the distance between the two objects
-                    let distance = this.parent.calculateDistance(this, child);
+                    let distance = gameMath.calculateDistance(this, child);
 
                     if(closestDistance === null || distance < closestDistance) {
                         closestDistance = distance;
@@ -341,15 +342,6 @@ export class GameScene extends PIXI.Container
         } */
         
         
-    }
-
-    calculateDistance(object1, object2) {
-        return Math.sqrt(Math.pow(object1.x - object2.x, 2) + Math.pow(object1.y - object2.y, 2));
-    }
-
-    collision(object1, object2) {
-        return (object1.x + object1.width > object2.x) && (object1.x < object2.x + object2.width)
-            && (object1.y + object1.height > object2.y) && (object1.y < object2.y + object2.height);
     }
 
     displayParts(roboPartType) {

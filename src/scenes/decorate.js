@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js';
 import { button } from '../gameobjects/button'
-import { GameScene } from './gameScene';
+import { TitleScene } from './title';
 import { EndScene } from './endScene';
+import { decoration } from '../gameobjects/decoration';
 
 export class DecorateScene extends PIXI.Container
 {
@@ -29,12 +30,12 @@ export class DecorateScene extends PIXI.Container
         /*
         add buttons to navigate back and forth
         */
-        let backBtn = new button({ image: "navButtons/backArrow.png" });
+        let homeBtn = new button({ image: "navButtons/homeButton.png" });
 
-        backBtn.x = 270;
-        backBtn.y = this.game.height - backBtn.height - 30;
+        homeBtn.x = 270;
+        homeBtn.y = this.game.height - homeBtn.height - 30;
 
-        this.addChild(backBtn);
+        this.addChild(homeBtn);
 
         let nextBtn = new button({ image: "navButtons/nextArrow.png" });
         
@@ -43,9 +44,9 @@ export class DecorateScene extends PIXI.Container
 
         this.addChild(nextBtn);
 
-        backBtn.on('pointerdown', () =>
+        homeBtn.on('pointerdown', () =>
         {
-            const prevScene = new GameScene(this.game);
+            const prevScene = new TitleScene(this.game);
             this.game.application.state.scene.value = prevScene;
         });
 
@@ -60,6 +61,22 @@ export class DecorateScene extends PIXI.Container
             this.robot[i].interactive = false;
             this.addChild(this.robot[i]);
         }
+
+        let shirt = new decoration({ x: 300, y: 300, image: "decorations/tshirt.png"});
+        this.addChild(shirt);
+
+        let eyes = new decoration({ x: 300, y: 500, image: "decorations/eyes.png"});
+        this.addChild(eyes);
+
+        let lightbulb = new decoration({ x: 1000, y: 400, image: "decorations/lightbulb.png"});
+        this.addChild(lightbulb);
+
+        // this.children.forEach(child =>
+        // {
+        //     if (child instanceof decoration) {
+        //         child.on('pointerdown', this.onDragStart);
+        //     }
+        // });
     }
 
     update()

@@ -169,7 +169,7 @@
             <key>defaultPivotPoint</key>
             <point_f>0,0</point_f>
             <key>writePivotPoints</key>
-            <true/>
+            <false/>
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
@@ -219,6 +219,7 @@
                 <false/>
             </struct>
             <key type="filename">../devAssets/sprites/navButtons/backArrow.png</key>
+            <key type="filename">../devAssets/sprites/navButtons/homeButton.png</key>
             <key type="filename">../devAssets/sprites/navButtons/nextArrow.png</key>
             <key type="filename">../devAssets/sprites/navButtons/restart.png</key>
             <key type="filename">../devAssets/sprites/toolboxes/armBoxClosed.png</key>
@@ -410,6 +411,7 @@
         <key>ignoredWarnings</key>
         <array>
             <string>try-pro-features</string>
+            <string>pixijs-multipack-2023-05-25</string>
         </array>
         <key>commonDivisorX</key>
         <uint>1</uint>
