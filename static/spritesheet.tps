@@ -177,6 +177,7 @@
             <key type="filename">../devAssets/sprites/decorations/lightbulb.png</key>
             <key type="filename">../devAssets/sprites/decorations/tshirt.png</key>
             <key type="filename">../devAssets/sprites/navButtons/backArrow.png</key>
+            <key type="filename">../devAssets/sprites/navButtons/checkmark.png</key>
             <key type="filename">../devAssets/sprites/navButtons/homeButton.png</key>
             <key type="filename">../devAssets/sprites/navButtons/nextArrow.png</key>
             <key type="filename">../devAssets/sprites/navButtons/restart.png</key>

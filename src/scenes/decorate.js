@@ -13,6 +13,7 @@ export class DecorateScene extends PIXI.Container
         super();
         this.game = game;
         this.robot = robot;
+        this.decorations = [];
     }
 
     async preload()
@@ -39,12 +40,13 @@ export class DecorateScene extends PIXI.Container
 
         this.addChild(homeBtn);
 
-        let nextBtn = new button({ image: "navButtons/nextArrow.png" });
+        this.finishBtn = new button({ image: "navButtons/checkmark.png" });
         
-        nextBtn.x = this.game.width - nextBtn.width - 130;
-        nextBtn.y = this.game.height - nextBtn.height - 30;
+        this.finishBtn.x = this.game.width - this.finishBtn.width - 130;
+        this.finishBtn.y = this.game.height - this.finishBtn.height - 30;
+        this.finishBtn.visible = false; // decoration stage not yet completed
 
-        this.addChild(nextBtn);
+        this.addChild(this.finishBtn);
 
         homeBtn.on('pointerdown', () =>
         {
@@ -52,9 +54,9 @@ export class DecorateScene extends PIXI.Container
             this.game.application.state.scene.value = prevScene;
         });
 
-        nextBtn.on('pointerdown', () =>
+        this.finishBtn.on('pointerdown', () =>
         {
-            const nextScene = new EndScene(this.game);
+            const nextScene = new EndScene(this.game, this.robot, this.decorations);
             this.game.application.state.scene.value = nextScene;
         });
 
@@ -112,6 +114,11 @@ export class DecorateScene extends PIXI.Container
             if (child instanceof roboPart) {
                 if (gameMath.collision(this, child)) {
                     robotCollision = child;
+                    this.onRobot = true;
+
+                    if (this.parent.decorations && !this.parent.decorations.includes(this)) {
+                        this.parent.decorations.push(this);
+                    }
                 }
             }
         });
@@ -119,11 +126,26 @@ export class DecorateScene extends PIXI.Container
         if (!robotCollision) {
             this.x = this.initialX;
             this.y = this.initialY;
+
+            if (this.parent.decorations && this.parent.decorations.includes(this)) {
+                for (let i = 0; i < this.parent.decorations.length; ++i) {
+                    if (this === this.parent.decorations[i]) {
+                        this.parent.decorations.splice(i, 1); // removes element at index i and resizes array
+                        console.log("removing shape from decorations");
+                    }
+                }
+            }
         }
+
+        console.log(this.parent.decorations);
     }
 
     update()
     {
-        // nothing to do
+        if (this.decorations.length === 0) {
+            this.finishBtn.visible = false;
+        } else {
+            this.finishBtn.visible = true;
+        }
     }
 }

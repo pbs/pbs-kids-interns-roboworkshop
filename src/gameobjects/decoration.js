@@ -17,6 +17,7 @@ export class decoration extends PIXI.Sprite
         this.eventMode = 'static'; // allows the shapes to be interactive
         this.cursor = 'pointer'; // on mouse over (i.e. when the cursor is over the object)... change its appearance to one that shows that there's a click/drag interaction
     
+        this.onRobot = false; // decoration hasn't been placed yet
     }
     
     update()

@@ -4,15 +4,17 @@ import { TitleScene } from './title';
 
 export class EndScene extends PIXI.Container
 {
-    constructor(game)
+    constructor(game, robot, decorations)
     {
         super();
         this.game = game;
+        this.robot = robot;
+        this.decorations = decorations;
     }
 
     async preload()
     {
-        PIXI.Assets.add({alias: 'testBG', src: './assets/backgrounds/BG1320x780-2.png'});
+        PIXI.Assets.add({alias: 'testBG', src: './assets/backgrounds/LastBackground.png'});
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/spritesheet.json'});
 
         this.backgroundTexture = await PIXI.Assets.load('testBG');
@@ -33,6 +35,14 @@ export class EndScene extends PIXI.Container
         });
 
         this.addChild(restartBtn);
+
+        for (let i = 0; i < this.robot.length; ++i) {
+            this.addChild(this.robot[i]);
+        }
+
+        for (let i = 0; i < this.decorations.length; ++i) {
+            this.addChild(this.decorations[i]);
+        }
     }
 
     update()

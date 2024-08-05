@@ -156,7 +156,7 @@ export class GameScene extends PIXI.Container
                 child.on('pointerupoutside', this.onDragEnd);
 
                 // if (child.onFrame) {
-                //     child.on('pointerdown', this.onClick);
+                //     child.on('pointertap', this.onDoubleTap);
                 // }
 
             } else if (child instanceof toolbox) {
@@ -322,25 +322,19 @@ export class GameScene extends PIXI.Container
     onClick() {
 
         // if the box is closed, open it... otherwise, close it
-        if (this instanceof toolbox) {
-            if (!this.open) {
-                if (this.parent.currToolbox) { // check if there's already an open toolbox before opening this one: if so, close that one
-                    this.parent.currToolbox.open = false;
-                    this.parent.currToolbox.texture = this.parent.currToolbox.closedTexture;
-                }
-                this.open = true;
-                this.texture = this.openTexture;
-                this.parent.currToolbox = this;
-            } else {
-                this.open = false;
-                this.texture = this.closedTexture;
-                this.parent.currToolbox = null;
+        if (!this.open) {
+            if (this.parent.currToolbox) { // check if there's already an open toolbox before opening this one: if so, close that one
+                this.parent.currToolbox.open = false;
+                this.parent.currToolbox.texture = this.parent.currToolbox.closedTexture;
             }
-        } /* else if (this instanceof roboPart) {
-            this.tint = 0x000000;
-            console.log("wromp");
-        } */
-        
+            this.open = true;
+            this.texture = this.openTexture;
+            this.parent.currToolbox = this;
+        } else {
+            this.open = false;
+            this.texture = this.closedTexture;
+            this.parent.currToolbox = null;
+        }
         
     }
 
