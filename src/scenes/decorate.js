@@ -18,10 +18,10 @@ export class DecorateScene extends PIXI.Container
 
     async preload()
     {
-        PIXI.Assets.add({alias: 'testBG', src: './assets/backgrounds/BG1320x780-2.png'});
+        PIXI.Assets.add({alias: 'wkshp', src: './assets/backgrounds/Botbuilderbackground.png'});
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/spritesheet.json'});
 
-        this.backgroundTexture = await PIXI.Assets.load('testBG');
+        this.backgroundTexture = await PIXI.Assets.load('wkshp');
         await PIXI.Assets.load('spritesheet');
     }
 

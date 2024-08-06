@@ -14,10 +14,10 @@ export class EndScene extends PIXI.Container
 
     async preload()
     {
-        PIXI.Assets.add({alias: 'testBG', src: './assets/backgrounds/LastBackground.png'});
+        PIXI.Assets.add({alias: 'endBG', src: './assets/backgrounds/LastBackground.png'});
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/spritesheet.json'});
 
-        this.backgroundTexture = await PIXI.Assets.load('testBG');
+        this.backgroundTexture = await PIXI.Assets.load('endBG');
         await PIXI.Assets.load('spritesheet');
     }
 
@@ -26,7 +26,9 @@ export class EndScene extends PIXI.Container
         const scalerBackground = PIXI.Sprite.from(this.backgroundTexture);
         this.addChild(scalerBackground);
 
-        let restartBtn = new button({ x: this.game.width / 2, y: this.game.height / 2, image: "navButtons/restart.png" });
+        let restartBtn = new button({ x: 0, y: 0, image: "navButtons/restart.png" });
+        restartBtn.x = this.game.width - restartBtn.width - 200;
+        restartBtn.y = this.game.height - restartBtn.height - 100;
 
         restartBtn.on('pointerdown', () =>
         {
@@ -37,10 +39,13 @@ export class EndScene extends PIXI.Container
         this.addChild(restartBtn);
 
         for (let i = 0; i < this.robot.length; ++i) {
+            this.robot[i].y += 200;
             this.addChild(this.robot[i]);
         }
 
         for (let i = 0; i < this.decorations.length; ++i) {
+            this.decorations[i].y += 200;
+            this.decorations[i].interactive = false;
             this.addChild(this.decorations[i]);
         }
     }
