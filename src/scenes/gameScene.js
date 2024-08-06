@@ -62,12 +62,12 @@ export class GameScene extends PIXI.Container
         /*
         add toolboxes
         */
-        let headBox = new toolbox({x: 450, y: this.game.height - 100,  
+        let headBox = new toolbox({x: 350, y: this.game.height - 100,  
                                     closedBox: "toolboxes/headtoolbox.png", openBox: "toolboxes/headtoolboxOpen.png", 
                                     type: BODYPARTS.HEAD});
         this.addChild(headBox);
 
-        let bodyBox = new toolbox({x: 600, y: this.game.height - 100,  
+        let bodyBox = new toolbox({x: 550, y: this.game.height - 100,  
                                     closedBox: "toolboxes/bodyBoxClosed.png", openBox: "toolboxes/bodyBoxOpen.png", 
                                     type: BODYPARTS.BODY});
         this.addChild(bodyBox);
@@ -77,7 +77,7 @@ export class GameScene extends PIXI.Container
                                     type: BODYPARTS.ARM});
         this.addChild(armBox);
 
-        let legBox = new toolbox({x: 900, y: this.game.height - 100,  
+        let legBox = new toolbox({x: 950, y: this.game.height - 100,  
                                     closedBox: "toolboxes/legBoxClosed.png", openBox: "toolboxes/legBoxOpen.png", 
                                     type: BODYPARTS.LEG});
         this.addChild(legBox);
@@ -157,7 +157,7 @@ export class GameScene extends PIXI.Container
         this.children.forEach(function (child) { 
             if (child instanceof roboPart) {
 
-                console.log(child);
+                // console.log(child);
                 // if (child.type === BODYPARTS.ARM) {
                 //     console.log(child);
                 // }
@@ -351,8 +351,10 @@ export class GameScene extends PIXI.Container
     }
 
     displayParts(roboPartType) {
+        console.log(`roboPartType is: ${roboPartType}`);
         this.children.forEach(child => {
             if (child instanceof roboPart) {
+                console.log(`this ${child}'s type is ${child.type}`);
                 if (child.type === roboPartType) {
                     child.visible = true;
                 }
