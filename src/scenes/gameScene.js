@@ -7,6 +7,7 @@ import { roboFrame } from '../gameobjects/roboFrame';
 import { toolbox } from '../gameobjects/toolbox';
 import { BODYPARTS } from '../constants';
 import { gameMath } from '../gameMath';
+import { arms } from '../config/roboParts.json';
 
 export class GameScene extends PIXI.Container
 {
@@ -109,6 +110,8 @@ export class GameScene extends PIXI.Container
         let square3 = new roboPart({ x: 1000, y: 380, image: "shapes/whitesquare120x120.png", type: BODYPARTS.LEG});
         square3.tint = 0xf542cb;
         this.addChild(square3);
+
+        this.addChild(JSON.parse(arms));
 
         /*
         now add buttons to navigate back and forth
@@ -360,6 +363,15 @@ export class GameScene extends PIXI.Container
         
     } 
 
+    /*
+    addArms() {
+        let arms = [arm1, arm2, arm3];
+
+        arm1 = new roboPart({ x: 0, y: 0, image: 'xxx.png', type: BODYPARTS.ARM });
+        arm2 = new roboPart({ x: 0, y: 0, image: 'yyy.png', type: BODYPARTS.ARM });
+
+    }
+    */
     
     // add a dsstore, stores stuff that happens to the directory for mac os
     // look into containers and display objects: graphical objects that can be moved around
