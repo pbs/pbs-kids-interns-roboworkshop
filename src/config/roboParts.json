@@ -1,0 +1,16 @@
+{
+    "arms": [
+        {
+            "x": 50,
+            "y": 50,
+            "image": "shapes/arm1.2.png",
+            "type": "BODYPARTS.ARM"
+        },
+        {
+            "x": 100,
+            "y": 100,
+            "image": "shapes/arm1.png",
+            "type": 1
+        }
+    ]
+}
