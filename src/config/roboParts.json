@@ -1,16 +1,261 @@
 {
-    "arms": [
+    "heads": [
         {
-            "x": 50,
-            "y": 50,
+            "x": 355,
+            "y": 125,
+            "image": "shapes/heads/head1.png",
+            "type": 1
+        },
+        {
+            "x": 447,
+            "y": 290,
+            "image": "shapes/heads/head2.png",
+            "type": 1
+        },
+        {
+            "x": 250,
+            "y": 242,
+            "image": "shapes/heads/head3.png",
+            "type": 1
+        },
+        {
+            "x": 261,
+            "y": 400,
+            "image": "shapes/heads/head4.png",
+            "type": 1
+        },
+        {
+            "x": 548,
+            "y": 153,
+            "image": "shapes/heads/head5.png",
+            "type": 1
+        },
+        {
+            "x": 773,
+            "y": 147,
+            "image": "shapes/heads/head6.png",
+            "type": 1
+        },
+        {
+            "x": 1013,
+            "y": 150,
+            "image": "shapes/heads/head7.png",
+            "type": 1
+        },
+        {
+            "x": 930,
+            "y": 304,
+            "image": "shapes/heads/head8.png",
+            "type": 1
+        },
+        {
+            "x": 1109,
+            "y": 76,
+            "image": "shapes/heads/head9.png",
+            "type": 1
+        },
+        {
+            "x": 291,
+            "y": 291,
+            "image": "shapes/heads/head10.png",
+            "type": 1
+        }
+    ],
+
+    "bodies": [
+        {
+            "x": 266,
+            "y": 201,
+            "image": "shapes/bodies/body1.png",
+            "type": 2
+        },
+        {
+            "x": 299,
+            "y": 455,
+            "image": "shapes/bodies/body2.png",
+            "type": 2
+        },
+        {
+            "x": 573,
+            "y": 187,
+            "image": "shapes/bodies/body3.png",
+            "type": 2
+        },
+        {
+            "x": 431,
+            "y": 379,
+            "image": "shapes/bodies/body4.png",
+            "type": 2
+        },
+        {
+            "x": 836,
+            "y": 166,
+            "image": "shapes/bodies/body5.png",
+            "type": 2
+        },
+        {
+            "x": 1045,
+            "y": 267,
+            "image": "shapes/bodies/body6.png",
+            "type": 2
+        },
+        {
+            "x": 1033,
+            "y": 499,
+            "image": "shapes/bodies/body7.png",
+            "type": 2
+        }
+    ],
+
+    "arms": [
+        
+        {
+            "x": 204,
+            "y": 199,
+            "image": "shapes/arms/arm1.png",
+            "type": 3
+        },
+        {
+            "x": 1090,
+            "y": 384,
             "image": "shapes/arms/arm1.2.png",
             "type": 3
         },
         {
-            "x": 100,
-            "y": 100,
-            "image": "shapes/arms/arm1.png",
+            "x": 306,
+            "y": 150,
+            "image": "shapes/arms/arm2.png",
             "type": 3
+        },
+        {
+            "x": 1025,
+            "y": 155,
+            "image": "shapes/arms/arm2.2.png",
+            "type": 3
+        },
+        {
+            "x": 341,
+            "y": 344,
+            "image": "shapes/arms/arm3.png",
+            "type": 3
+        },
+        {
+            "x": 879,
+            "y": 158,
+            "image": "shapes/arms/arm3.2.png",
+            "type": 3
+        },
+        {
+            "x": 387,
+            "y": 151,
+            "image": "shapes/arms/arm4.png",
+            "type": 3
+        },
+        {
+            "x": 1099,
+            "y": 152,
+            "image": "shapes/arms/arm4.2.png",
+            "type": 3
+        },
+        {
+            "x": 461,
+            "y": 189,
+            "image": "shapes/arms/arm5.png",
+            "type": 3
+        },
+        {
+            "x": 942,
+            "y": 247,
+            "image": "shapes/arms/arm5.2.png",
+            "type": 3
+        },
+        {
+            "x": 248,
+            "y": 318,
+            "image": "shapes/arms/arm6.png",
+            "type": 3
+        },
+        {
+            "x": 1083,
+            "y": 277,
+            "image": "shapes/arms/arm6.2.png",
+            "type": 3
+        },
+        {
+            "x": 274,
+            "y": 416,
+            "image": "shapes/arms/arm7.png",
+            "type": 3
+        }
+
+    ],
+    
+    "legs": [
+        {
+            "x": 262,
+            "y": 202,
+            "image": "shapes/legs/leg1.png",
+            "type": 4
+        },
+        {
+            "x": 303,
+            "y": 364,
+            "image": "shapes/legs/leg2.png",
+            "type": 4
+        },
+        {
+            "x": 703,
+            "y": 155,
+            "image": "shapes/legs/leg2.2.png",
+            "type": 4
+        },
+        {
+            "x": 399,
+            "y": 296,
+            "image": "shapes/legs/leg3.png",
+            "type": 4
+        },
+        {
+            "x": 987,
+            "y": 406,
+            "image": "shapes/legs/leg3.2.png",
+            "type": 4
+        },
+        {
+            "x": 1055,
+            "y": 124,
+            "image": "shapes/legs/leg4.2.png",
+            "type": 4
+        },
+        {
+            "x": 410,
+            "y": 160,
+            "image": "shapes/legs/leg5.png",
+            "type": 4
+        },
+        {
+            "x": 1086,
+            "y": 435,
+            "image": "shapes/legs/leg5.2.png",
+            "type": 4
+        },
+        {
+            "x": 524,
+            "y": 124,
+            "image": "shapes/legs/leg6.png",
+            "type": 4
+        },
+        {
+            "x": 842,
+            "y": 129,
+            "image": "shapes/legs/leg6.2.png",
+            "type": 4
+        },
+        {
+            "x": 1020,
+            "y": 276,
+            "image": "shapes/legs/leg7.png",
+            "type": 4
         }
     ]
 }

@@ -85,33 +85,21 @@ export class GameScene extends PIXI.Container
         /*
         add roboParts
         */
-        let hexagon = new roboPart({ x: 900, y: 100, image: "shapes/hexagon.png", shape: 'hexagon', type: BODYPARTS.HEAD });
-        this.addChild(hexagon);
+        for (const head of roboPartAttrs.heads) {
+            let headPart = new roboPart({ x: head.x, y: head.y, image: head.image, type: head.type});
+            this.addChild(headPart);
+        }
 
-        let star = new roboPart({ x: 250, y: 400, image: "shapes/star.png", type: BODYPARTS.HEAD });
-        this.addChild(star);
+        for (const body of roboPartAttrs.bodies) {
+            let bodyPart = new roboPart({ x: body.x, y: body.y, image: body.image, type: body.type});
+            this.addChild(bodyPart);
+        }
 
-        let square = new roboPart({ x: 300, y: 180, image: "shapes/whitesquare120x120.png", type: BODYPARTS.HEAD});
-        square.tint = 0xa608c9;
-        this.addChild(square);
+        for (const leg of roboPartAttrs.legs) {
+            let legPart = new roboPart({ x: leg.x, y: leg.y, image: leg.image, type: leg.type});
+            this.addChild(legPart);
+        }
 
-        let square2 = new roboPart({ x: 1000, y: 380, image:"shapes/whitesquare120x120.png", type: BODYPARTS.HEAD});
-        square2.tint = 0x31ad3f;
-        this.addChild(square2);
-
-        let star2 = new roboPart({ x: 250, y: 400, image: "shapes/star.png", type: BODYPARTS.BODY });
-        star2.tint = 0xa763ff;
-        this.addChild(star2);
-
-        let hex2 = new roboPart({ x: 900, y: 100, image: "shapes/hexagon.png", type: BODYPARTS.ARM });
-        hex2.tint = 0xa763ff;
-        this.addChild(hex2);
-
-        let square3 = new roboPart({ x: 1000, y: 380, image: "shapes/whitesquare120x120.png", type: BODYPARTS.LEG});
-        square3.tint = 0xf542cb;
-        this.addChild(square3);
-
-        // this.addChild(JSON.parse(arms));
         for (const arm of roboPartAttrs.arms) {
             let armPart = new roboPart({ x: arm.x, y: arm.y, image: arm.image, type: arm.type });
             this.addChild(armPart);
@@ -351,11 +339,12 @@ export class GameScene extends PIXI.Container
     }
 
     displayParts(roboPartType) {
-        console.log(`roboPartType is: ${roboPartType}`);
+        // console.log(`roboPartType is: ${roboPartType}`);
         this.children.forEach(child => {
             if (child instanceof roboPart) {
-                console.log(`this ${child}'s type is ${child.type}`);
+                // console.log(`this ${child}'s type is ${child.type}`);
                 if (child.type === roboPartType) {
+                    console.log(child);
                     child.visible = true;
                 }
             }
