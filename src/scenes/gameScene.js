@@ -7,7 +7,7 @@ import { roboFrame } from '../gameobjects/roboFrame';
 import { toolbox } from '../gameobjects/toolbox';
 import { BODYPARTS } from '../constants';
 import { gameMath } from '../gameMath';
-import { arms } from '../config/roboParts.json';
+import arms from '../config/roboParts.json';
 
 export class GameScene extends PIXI.Container
 {
