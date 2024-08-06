@@ -7,7 +7,7 @@ import { roboFrame } from '../gameobjects/roboFrame';
 import { toolbox } from '../gameobjects/toolbox';
 import { BODYPARTS } from '../constants';
 import { gameMath } from '../gameMath';
-import arms from '../config/roboParts.json';
+import roboPartAttrs from '../config/roboParts.json';
 
 export class GameScene extends PIXI.Container
 {
@@ -111,7 +111,11 @@ export class GameScene extends PIXI.Container
         square3.tint = 0xf542cb;
         this.addChild(square3);
 
-        this.addChild(JSON.parse(arms));
+        // this.addChild(JSON.parse(arms));
+        for (const arm of roboPartAttrs.arms) {
+            let armPart = new roboPart({ x: arm.x, y: arm.y, image: arm.image, type: arm.type });
+            this.addChild(armPart);
+        }
 
         /*
         now add buttons to navigate back and forth
@@ -152,6 +156,11 @@ export class GameScene extends PIXI.Container
         // turn on listeners
         this.children.forEach(function (child) { 
             if (child instanceof roboPart) {
+
+                console.log(child);
+                // if (child.type === BODYPARTS.ARM) {
+                //     console.log(child);
+                // }
 
                 child.on('pointerdown', this.onDragStart);
 
