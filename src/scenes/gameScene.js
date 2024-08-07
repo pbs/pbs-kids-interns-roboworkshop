@@ -39,24 +39,22 @@ export class GameScene extends PIXI.Container
         /*
         add the robot's frame
         */
-        let head = new roboFrame({ x: this.game.width / 2, y: 150, image: "roboFrameParts/bothead.png"});
+        let head = new roboFrame({ x: 658, y: 312, image: "roboFrameParts/bothead.png"});
         this.addChild(head);
 
-        let body = new roboFrame({ x: this.game.width / 2, y: 150 + head.height, image: "roboFrameParts/Botbody.png"});
+        let body = new roboFrame({ x: 657, y: 390, image: "roboFrameParts/Botbody.png"});
         this.addChild(body);
 
-        let leftArm = new roboFrame({ x: this.game.width / 2 - body.width , y: 150 + head.height, image: "roboFrameParts/leftbotarm.png"});
+        let leftArm = new roboFrame({ x: 574, y: 410, image: "roboFrameParts/leftbotarm.png"});
         this.addChild(leftArm);
 
-        let rightArm = new roboFrame({ x: this.game.width / 2 + body.width , y: 150 + head.height, image: "roboFrameParts/rightbotarm.png"});
+        let rightArm = new roboFrame({ x: 742, y: 410, image: "roboFrameParts/rightbotarm.png"});
         this.addChild(rightArm);
 
-        let leftLeg = new roboFrame({ x: this.game.width / 2 - body.height / 2, 
-                                        y: 200 + head.height + body.height, image: "roboFrameParts/leftbotleg.png"});
+        let leftLeg = new roboFrame({ x: 627, y: 470, image: "roboFrameParts/leftbotleg.png"});
         this.addChild(leftLeg);
 
-        let rightLeg = new roboFrame({ x: this.game.width / 2  + body.height / 2, 
-                                        y: 200 + head.height + body.height, image: "roboFrameParts/rightbotleg.png"});
+        let rightLeg = new roboFrame({ x: 695, y: 470, image: "roboFrameParts/rightbotleg.png"});
         this.addChild(rightLeg);
 
         /*

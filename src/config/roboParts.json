@@ -252,9 +252,15 @@
             "type": 4
         },
         {
-            "x": 1020,
+            "x": 1005,
             "y": 276,
             "image": "shapes/legs/leg7.png",
+            "type": 4
+        },
+        {
+            "x": 1100,
+            "y": 276,
+            "image": "shapes/legs/leg7.2.png",
             "type": 4
         }
     ]
