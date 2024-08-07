@@ -5,6 +5,7 @@ import { EndScene } from './endScene';
 import { decoration } from '../gameobjects/decoration';
 import { gameMath } from '../gameMath';
 import { roboPart } from '../gameobjects/roboPart';
+import decoAttrs from '../config/decorations.json';
 
 export class DecorateScene extends PIXI.Container
 {
@@ -66,14 +67,10 @@ export class DecorateScene extends PIXI.Container
             this.addChild(this.robot[i]);
         }
 
-        let shirt = new decoration({ x: 300, y: 300, image: "decorations/tshirt.png"});
-        this.addChild(shirt);
-
-        let eyes = new decoration({ x: 300, y: 500, image: "decorations/eyes.png"});
-        this.addChild(eyes);
-
-        let lightbulb = new decoration({ x: 1000, y: 400, image: "decorations/lightbulb.png"});
-        this.addChild(lightbulb);
+        for (const deco of decoAttrs.decos) {
+            let decoPiece = new decoration({ x: deco.x, y: deco.y, image: deco.image });
+            this.addChild(decoPiece);
+        }
 
         this.children.forEach(function (child) {
             if (child instanceof decoration) {
@@ -131,13 +128,13 @@ export class DecorateScene extends PIXI.Container
                 for (let i = 0; i < this.parent.decorations.length; ++i) {
                     if (this === this.parent.decorations[i]) {
                         this.parent.decorations.splice(i, 1); // removes element at index i and resizes array
-                        console.log("removing shape from decorations");
+                        // console.log("removing shape from decorations");
                     }
                 }
             }
         }
 
-        console.log(this.parent.decorations);
+        // console.log(this.parent.decorations);
     }
 
     update()

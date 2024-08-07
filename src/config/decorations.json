@@ -1,0 +1,89 @@
+{
+    "decos": [
+        {
+            "x": 259,
+            "y": 206,
+            "image": "decorations/deco1.png"
+        },
+        {
+            "x": 256,
+            "y": 292,
+            "image": "decorations/deco2.png"
+        },
+        {
+            "x": 340,
+            "y": 155,
+            "image": "decorations/deco3.png"
+        },
+        {
+            "x": 335,
+            "y": 276,
+            "image": "decorations/deco4.png"
+        },
+        {
+            "x": 327,
+            "y": 362,
+            "image": "decorations/deco5.png"
+        },
+        {
+            "x": 445,
+            "y": 125,
+            "image": "decorations/deco6.png"
+        },
+        {
+            "x": 425,
+            "y": 174,
+            "image": "decorations/deco7.png"
+        },
+        {
+            "x": 384,
+            "y": 438,
+            "image": "decorations/deco8.png"
+        }, 
+        {
+            "x": 570,
+            "y": 131,
+            "image": "decorations/deco9.png"
+        },
+        {
+            "x": 808,
+            "y": 132,
+            "image": "decorations/deco10.png"
+        },
+        {
+            "x": 879,
+            "y": 184,
+            "image": "decorations/deco11.png"
+        },
+        {
+            "x": 919,
+            "y": 328,
+            "image": "decorations/deco12.png"
+        },
+        {
+            "x": 912,
+            "y": 418,
+            "image": "decorations/deco13.png"
+        },
+        {
+            "x": 956,
+            "y": 147,
+            "image": "decorations/deco14.png"
+        },
+        {
+            "x": 976,
+            "y": 252,
+            "image": "decorations/deco15.png"
+        },
+        {
+            "x": 1001,
+            "y": 362,
+            "image": "decorations/deco16.png"
+        },
+        {
+            "x": 1030,
+            "y": 196,
+            "image": "decorations/deco17.png"
+        }
+    ]
+}
