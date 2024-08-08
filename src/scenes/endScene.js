@@ -16,15 +16,19 @@ export class EndScene extends PIXI.Container
     {
         PIXI.Assets.add({alias: 'endBG', src: './assets/backgrounds/LastBackground.png'});
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/spritesheet.json'});
+        PIXI.Assets.add({alias: 'complete', src: './assets/audio/robotComplete.mp3'})
 
         this.backgroundTexture = await PIXI.Assets.load('endBG');
-        await PIXI.Assets.load('spritesheet');
+        await PIXI.Assets.load(['spritesheet', 'complete']);
     }
 
     start()
     {
         const scalerBackground = PIXI.Sprite.from(this.backgroundTexture);
         this.addChild(scalerBackground);
+
+        this.completionSound = PIXI.Assets.get('complete');
+        this.completionSound.play();
 
         let restartBtn = new button({ x: 0, y: 0, image: "navButtons/restart.png" });
         restartBtn.x = this.game.width - restartBtn.width - 200;

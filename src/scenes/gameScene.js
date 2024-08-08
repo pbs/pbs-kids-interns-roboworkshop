@@ -116,7 +116,7 @@ export class GameScene extends PIXI.Container
         */
         let homeBtn = new button({ image: "navButtons/homeButton.png" });
 
-        homeBtn.x = 270;
+        homeBtn.x = 200;
         homeBtn.y = this.game.height - homeBtn.height - 30;
 
         this.addChild(homeBtn);
@@ -124,7 +124,7 @@ export class GameScene extends PIXI.Container
         this.nextBtn = new button({ image: "navButtons/nextArrow.png" });
         
         this.nextBtn.x = this.game.width - this.nextBtn.width - 130;
-        this.nextBtn.y = this.game.height - this.nextBtn.height - 30;
+        this.nextBtn.y = this.game.height - this.nextBtn.height - 35;
         this.nextBtn.visible = false; // player hasn't completed robot yet
 
         this.addChild(this.nextBtn);
