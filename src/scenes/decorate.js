@@ -21,15 +21,18 @@ export class DecorateScene extends PIXI.Container
     {
         PIXI.Assets.add({alias: 'wkshp', src: './assets/backgrounds/Botbuilderbackground.png'});
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/spritesheet.json'});
+        PIXI.Assets.add({alias: 'bubble', src: './assets/audio/itemPlaced.mp3'});
 
         this.backgroundTexture = await PIXI.Assets.load('wkshp');
-        await PIXI.Assets.load('spritesheet');
+        await PIXI.Assets.load(['spritesheet', 'bubble']);
     }
 
     start()
     {
         const scalerBackground = PIXI.Sprite.from(this.backgroundTexture);
         this.addChild(scalerBackground);
+
+        this.itemSFX = PIXI.Assets.get('bubble');
 
         /*
         add buttons to navigate back and forth
@@ -110,10 +113,12 @@ export class DecorateScene extends PIXI.Container
         this.parent.children.forEach(child => {
             if (child instanceof roboPart) {
                 if (gameMath.collision(this, child)) {
-                    robotCollision = child;
+                    robotCollision = this;
                     this.onRobot = true;
+                    // console.log(`${this} is on the robot`);
 
                     if (this.parent.decorations && !this.parent.decorations.includes(this)) {
+                        this.parent.itemSFX.play();
                         this.parent.decorations.push(this);
                     }
                 }

@@ -22,9 +22,11 @@ export class GameScene extends PIXI.Container
     {
         // add this lvl's bkgd
         PIXI.Assets.add({alias: 'workshopBG', src: './assets/backgrounds/Botbuilderbackground.png'});
+        PIXI.Assets.add({alias: 'bubble', src: './assets/audio/placeItem.mp3'});
+        PIXI.Assets.add({alias: 'ding', src: './assets/audio/goToDecorate.mp3'});
         
         // load the textures
-        await PIXI.Assets.load(['workshopBG', 'spritesheet']);
+        await PIXI.Assets.load(['workshopBG', 'spritesheet', 'bubble', 'ding']);
     }
 
     start()
@@ -81,6 +83,12 @@ export class GameScene extends PIXI.Container
         this.addChild(legBox);
 
         /*
+        sounds
+        */
+        this.itemSFX = PIXI.Assets.get('bubble');
+        this.nextLvlChime = PIXI.Assets.get('ding'); 
+
+        /*
         add roboParts
         */
         for (const head of roboPartAttrs.heads) {
@@ -129,6 +137,7 @@ export class GameScene extends PIXI.Container
 
         this.nextBtn.on('pointerdown', () =>
         {
+            this.nextLvlChime.play();
             const nextScene = new DecorateScene(this.game, this.robot);
             this.game.application.state.scene.value = nextScene;
         });
@@ -291,6 +300,9 @@ export class GameScene extends PIXI.Container
         // also, update its currentShape and make the frame transparent
         if (closestObject) {
 
+            this.parent.itemSFX.play();
+            // console.log('sound playing');
+
             this.x = closestObject.x;
             this.y = closestObject.y;
             closestObject.currentShape = this;
@@ -300,7 +312,7 @@ export class GameScene extends PIXI.Container
             if (this.parent.robot && !this.parent.robot.includes(this)) {
                 this.parent.robot.push(this);
             }
-            
+
         } else { // otherwise, the roboPart was dropped outside with no collision, so bring it back to its og position
             this.x = this.initialX;
             this.y = this.initialY;
@@ -342,7 +354,7 @@ export class GameScene extends PIXI.Container
             if (child instanceof roboPart) {
                 // console.log(`this ${child}'s type is ${child.type}`);
                 if (child.type === roboPartType) {
-                    console.log(child);
+                    // console.log(child);
                     child.visible = true;
                 }
             }

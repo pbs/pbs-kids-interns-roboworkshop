@@ -15,10 +15,10 @@ export class TitleScene extends PIXI.Container
         PIXI.Assets.add({alias: 'titleBG', src: './assets/backgrounds/botbuilderfrontpage.png'});
         PIXI.Assets.add({alias: 'spritesheet', src: './assets/spritesheets/main-spritesheet.json'});
         PIXI.Assets.add({alias: 'welcome', src: './assets/audio/workshopWelcome.mp3'});
-
+        PIXI.Assets.add({alias: 'buildRobo', src: './assets/audio/buildYourRobotSelect.mp3'});
 
         this.backgroundTexture = await PIXI.Assets.load('titleBG');
-        await PIXI.Assets.load(['spritesheet', 'narrator', 'welcome']);
+        await PIXI.Assets.load(['spritesheet', 'narrator', 'welcome', 'buildRobo']);
     }
 
     start()
@@ -26,11 +26,14 @@ export class TitleScene extends PIXI.Container
         const scalerBackground = PIXI.Sprite.from(this.backgroundTexture);
         this.addChild(scalerBackground);
 
-        let puzzleBtn = new button({ x: this.game.width / 2 - 150, y: this.game.height / 2 + 200, image: "gameSelectionBtns/roboPuzzle.png" });
-        let buildYourOwnBtn = new button({ x: this.game.width / 2 + 150, y: this.game.height / 2 + 200, image: "gameSelectionBtns/buildYourRobot.png" });
+        let puzzleBtn = new button({ x: this.game.width / 2 - 250, y: this.game.height / 2 + 200, image: "gameSelectionBtns/roboPuzzle.png" });
+        let buildYourOwnBtn = new button({ x: this.game.width / 2 + 250, y: this.game.height / 2 + 200, image: "gameSelectionBtns/buildYourRobot.png" });
+
+        this.buildRoboSound = PIXI.Assets.get('buildRobo');
 
         buildYourOwnBtn.on('pointerdown', () =>
         {
+            this.buildRoboSound.play();
             const nextScene = new GameScene(this.game);
             this.game.application.state.scene.value = nextScene;
         });
@@ -46,8 +49,8 @@ export class TitleScene extends PIXI.Container
         /*
         narration VO
         */
-        this.welcomeMsg = PIXI.Assets.get('welcome');
-        this.welcomeMsg.play();
+        // this.welcomeMsg = PIXI.Assets.get('welcome');
+        // this.welcomeMsg.play();
     }
 
     update()

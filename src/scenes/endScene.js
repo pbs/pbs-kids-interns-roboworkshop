@@ -39,12 +39,12 @@ export class EndScene extends PIXI.Container
         this.addChild(restartBtn);
 
         for (let i = 0; i < this.robot.length; ++i) {
-            this.robot[i].y += 185;
+            this.robot[i].y += 105;
             this.addChild(this.robot[i]);
         }
 
         for (let i = 0; i < this.decorations.length; ++i) {
-            this.decorations[i].y += 185;
+            this.decorations[i].y += 105;
             this.decorations[i].interactive = false;
             this.addChild(this.decorations[i]);
         }
