@@ -62,22 +62,22 @@ export class GameScene extends PIXI.Container
         /*
         add toolboxes
         */
-        let headBox = new toolbox({x: 350, y: this.game.height - 100,  
+        let headBox = new toolbox({x: 350, y: this.game.height - 130,  
                                     closedBox: "toolboxes/headtoolbox.png", openBox: "toolboxes/headtoolboxOpen.png", 
                                     type: BODYPARTS.HEAD});
         this.addChild(headBox);
 
-        let bodyBox = new toolbox({x: 550, y: this.game.height - 100,  
+        let bodyBox = new toolbox({x: 550, y: this.game.height - 130,  
                                     closedBox: "toolboxes/bodyBoxClosed.png", openBox: "toolboxes/bodyBoxOpen.png", 
                                     type: BODYPARTS.BODY});
         this.addChild(bodyBox);
 
-        let armBox = new toolbox({x: 750, y: this.game.height - 100,  
+        let armBox = new toolbox({x: 750, y: this.game.height - 130,  
                                     closedBox: "toolboxes/armBoxClosed.png", openBox: "toolboxes/armBoxOpen.png", 
                                     type: BODYPARTS.ARM});
         this.addChild(armBox);
 
-        let legBox = new toolbox({x: 950, y: this.game.height - 100,  
+        let legBox = new toolbox({x: 950, y: this.game.height - 130,  
                                     closedBox: "toolboxes/legBoxClosed.png", openBox: "toolboxes/legBoxOpen.png", 
                                     type: BODYPARTS.LEG});
         this.addChild(legBox);
